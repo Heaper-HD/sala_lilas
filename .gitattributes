@@ -1,0 +1,49 @@
+# =========================
+# DEFAULT TEXT HANDLING
+# =========================
+* text=auto
+
+# =========================
+# FORCE CONSISTENT LINE ENDINGS
+# =========================
+*.js text eol=lf
+*.jsx text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.java text eol=lf
+*.gradle text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf
+*.css text eol=lf
+*.html text eol=lf
+
+# =========================
+# WINDOWS-SPECIFIC FILES
+# =========================
+*.bat text eol=crlf
+
+# =========================
+# BINARIES (DO NOT NORMALIZE)
+# =========================
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.svg binary
+*.ico binary
+*.pdf binary
+
+# =========================
+# FONT FILES
+# =========================
+*.ttf binary
+*.woff binary
+*.woff2 binary
+
+# =========================
+# ZIP / ARCHIVES
+# =========================
+*.zip binary
+*.tar binary
+*.gz binary

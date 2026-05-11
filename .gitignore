@@ -1,0 +1,51 @@
+# =========================
+# ENV FILES
+# =========================
+.env
+.env.local
+.env.*.local
+
+# =========================
+# LOGS
+# =========================
+*.log
+logs/
+
+# =========================
+# OS FILES
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# IDEs
+# =========================
+.vscode/
+.idea/
+*.iml
+
+# =========================
+# BACKEND (Spring Boot / Gradle)
+# =========================
+/backend/.gradle/
+/backend/build/
+/backend/out/
+
+# =========================
+# FRONTEND (React / Vite)
+# =========================
+/frontend/node_modules/
+/frontend/dist/
+/frontend/dist-ssr/
+
+# =========================
+# TEST / TEMP FILES
+# =========================
+*.tmp
+*.temp
+
+# =========================
+# DOCKER (future-safe)
+# =========================
+docker-compose.override.yml
+*.pid

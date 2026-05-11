@@ -1,0 +1,12 @@
+name: Deploy CI
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  placeholder:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Not implemented yet
+        run: echo "Deploy CI not configured yet"

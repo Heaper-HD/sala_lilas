@@ -1,0 +1,13 @@
+package com.fadergs.salalilas.backend.common.enums;
+
+public enum TipoEventoTimeline {
+    AGENDAMENTO_CRIADO,
+    CHECKIN_REALIZADO,
+    NAO_VEIO,
+    ENCAMINHAMENTO,
+    ANAMNESE_INICIAL_REGISTRADA,
+    ANAMNESE_TECNICA_REGISTRADA,
+    PRONTUARIO_REGISTRADO,
+    OBS_JURIDICA_REGISTRADA,
+    ATENDIMENTO_FINALIZADO
+}

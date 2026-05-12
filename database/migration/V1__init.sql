@@ -49,7 +49,7 @@ CREATE TABLE pacientes (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     nome VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
-    cpf CHAR(11) NOT NULL UNIQUE,
+    cpf VARCHAR(11) NOT NULL UNIQUE,
     criado_em TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 -- =================================
@@ -125,7 +125,7 @@ CREATE TABLE anamnese_tecnica_orientacoes (
 CREATE TABLE anamnese_tecnica_encaminhamentos (
     anamnese_tecnica_id UUID NOT NULL REFERENCES anamnese_tecnica(id),
     encaminhamento VARCHAR(50) NOT NULL,
-    envaminhamento_outro VARCHAR(255),
+    encaminhamento_outro VARCHAR(255),
     PRIMARY KEY (anamnese_tecnica_id, encaminhamento)
 );
 -- Tabela de junção para objetivo do encaminhamento (multi-seleção)
@@ -168,7 +168,7 @@ CREATE TABLE encaminhamentos (
     destino_perfil perfil_usuario,
     destino_outros BOOLEAN NOT NULL DEFAULT FALSE,
     criado_por UUID NOT NULL REFERENCES usuarios(id),
-    creado_em TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    criado_em TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 -- =================================
 -- TIMELINE

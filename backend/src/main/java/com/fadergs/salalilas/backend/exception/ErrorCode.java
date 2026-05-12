@@ -10,6 +10,10 @@ public enum ErrorCode {
     // --- Auth (AUTH) ---
     AUTH_INVALID_CREDENTIALS("AUTH_001", "Credenciais inválidas"),
     AUTH_TOKEN_EXPIRED("AUTH_002", "Token expirado"),
+    AUTH_TOKEN_INVALID("AUTH_003", "Token inválido"),                                    // missing
+    AUTH_LGPD_PENDING("AUTH_004", "Termo de responsabilidade pendente de aceite"),       // missing
+    AUTH_OAUTH2_ACCOUNT_NOT_FOUND("AUTH_005", "Conta não encontrada. Contate o administrador"), // missing
+    AUTH_USER_DISABLED("AUTH_006", "Usuário desativado"),
 
     // --- Agendamento (AGD) ---
     AGD_NOT_FOUND("AGD_001", "Agendamento não encontrado"),
@@ -43,7 +47,7 @@ public enum ErrorCode {
     PDF_NOT_FOUND("PDF_002", "PDF não encontrado para este atendimento"),
 
     // --- Generic ---
-    VALIDATION_ERROR("VAL_001", "Erro de validação nos campos emviados"),
+    VALIDATION_ERROR("VAL_001", "Erro de validação nos campos enviados"),
     ACCESS_DENIED("SEC_001", "Acesso negado"),
     INTERNAL_ERROR("ERR_001", "Erro interno. Contate o suporte");
 

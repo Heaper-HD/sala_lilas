@@ -21,7 +21,7 @@ public class AppProperties {
     }
 
     @Data
-    private static class Frontend {
+    public static class Frontend {
         private String callbackUrl;
     }
 

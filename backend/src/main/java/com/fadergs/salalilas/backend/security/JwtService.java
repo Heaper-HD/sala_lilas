@@ -1,5 +1,6 @@
 package com.fadergs.salalilas.backend.security;
 
+import com.fadergs.salalilas.backend.common.enums.PerfilUsuario;
 import com.fadergs.salalilas.backend.config.AppProperties;
 import com.fadergs.salalilas.backend.user.entity.Usuario;
 import io.jsonwebtoken.Claims;
@@ -65,6 +66,12 @@ public class JwtService {
     public UUID extractUserId(String token) {
         return UUID.fromString(
                 getClaim(token, c -> c.get(CLAIM_USER_ID, String.class))
+        );
+    }
+
+    public PerfilUsuario extractPerfil(String token) {
+        return PerfilUsuario.valueOf(
+                getClaim(token, c -> c.get(CLAIM_PERFIL, String.class))
         );
     }
 

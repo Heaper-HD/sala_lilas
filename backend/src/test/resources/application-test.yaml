@@ -1,0 +1,34 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/salalilas_dev
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+
+  flyway:
+    enabled: true
+    locations: filesystem:../db/migration
+
+app:
+  jwt:
+    secret: "test-secret-key-sala-lilas-2026-must-be-32-chars"
+    access-token-expiration: 3600000
+    refresh-token-expiration: 604800000
+  frontend:
+    callback-url: http://localhost:3000/oauth2/callback
+  pdf:
+    storage-path: /tmp/salalilas/test/pdfs
+
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false
+
+logging:
+  level:
+    root: WARN
+    com.fadergs.salalilas: DEBUG

@@ -39,7 +39,7 @@ public class SecurityConfig {
     private final CustomOAuth2UserService customOAuth2UserService;
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http, CorsConfigurationSource corsConfigurationSource) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
 
@@ -95,7 +95,7 @@ public class SecurityConfig {
                 {
                     "errorCode": "AUTH_003",
                     "message": "Token inválido ou ausente",
-                    "httpStratus": 401
+                    "httpStatus": 401
                 }
             """);
         };

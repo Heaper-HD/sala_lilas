@@ -10,17 +10,19 @@ public enum ErrorCode {
     // --- Auth (AUTH) ---
     AUTH_INVALID_CREDENTIALS("AUTH_001", "Credenciais inválidas"),
     AUTH_TOKEN_EXPIRED("AUTH_002", "Token expirado"),
-    AUTH_TOKEN_INVALID("AUTH_003", "Token inválido"),                                    // missing
-    AUTH_LGPD_PENDING("AUTH_004", "Termo de responsabilidade pendente de aceite"),       // missing
-    AUTH_OAUTH2_ACCOUNT_NOT_FOUND("AUTH_005", "Conta não encontrada. Contate o administrador"), // missing
+    AUTH_TOKEN_INVALID("AUTH_003", "Token inválido"),
+    AUTH_LGPD_PENDING("AUTH_004", "Termo de responsabilidade pendente de aceite"),
+    AUTH_OAUTH2_ACCOUNT_NOT_FOUND("AUTH_005", "Conta não encontrada. Contate o administrador"),
     AUTH_USER_DISABLED("AUTH_006", "Usuário desativado"),
 
     // --- Agendamento (AGD) ---
     AGD_NOT_FOUND("AGD_001", "Agendamento não encontrado"),
     AGD_SLOT_UNAVAILABLE("AGD_002", "Horário indisponível"),
     AGD_INVALID_DATE("AGD_003", "Data inválida. Somente dias úteis são permitidos"),
-    AGD_INVALID_STATUS_TRANSITION("AGD_004", "Transição de status inválida"),
-    AGD_ALREADY_FINALIZED("AGD_005", "Atendimento já finalizado"),
+    AGD_INVALID_TIME("AGD_004", "Horário inváldio"),
+    AGD_INVALID_CPF("AGD_005", "CPF inválido"),
+    AGD_INVALID_STATUS_TRANSITION("AGD_006", "Transição de status inválida"),
+    AGD_ALREADY_FINALIZED("AGD_007", "Atendimento já finalizado"),
 
     // --- Paciente (PAC) ---
     PAC_NOT_FOUND("PAC_001", "Paciente não encontrado"),

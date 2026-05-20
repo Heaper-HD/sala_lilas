@@ -26,6 +26,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Entity
 @Table(name = "agendamentos", uniqueConstraints = @UniqueConstraint(name = "uq_agendamento_data_horario", columnNames = {
@@ -54,7 +56,8 @@ public class Agendamento {
     private LocalTime horario;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "status", columnDefinition = "status_atendimento")
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     @Builder.Default
     private StatusAtendimento status = StatusAtendimento.AGENDADO;
 

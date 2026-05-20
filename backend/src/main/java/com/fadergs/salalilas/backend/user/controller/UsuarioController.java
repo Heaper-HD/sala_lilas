@@ -20,7 +20,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/usuarios")
 @RequiredArgsConstructor
-@Tag(name = "Usuários", description = "Gestão de usuários internos - acesso exclusivo do Administrador")
+@Tag(name = "Usuarios", description = "Gestão de usuários internos - acesso exclusivo do Administrador")
 public class UsuarioController {
     private final UsuarioService usuarioService;
 

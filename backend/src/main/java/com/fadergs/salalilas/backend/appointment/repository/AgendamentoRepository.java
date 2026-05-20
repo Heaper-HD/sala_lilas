@@ -11,7 +11,7 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
 
-interface AgendamentoRepository extends JpaRepository<Agendamento, UUID> {
+public interface AgendamentoRepository extends JpaRepository<Agendamento, UUID> {
     List<Agendamento> findByDataAndStatusOrderByHorarioAsc(
             LocalDate data, StatusAtendimento status
     );

@@ -18,6 +18,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Entity
 @Table(name = "usuarios")
@@ -40,7 +42,8 @@ public class Usuario {
     private String senhaHash;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "perfil", columnDefinition = "perfil_usuario")
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private PerfilUsuario perfil;
 
     @Column(name = "lgpd_aceito", nullable = false)

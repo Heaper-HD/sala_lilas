@@ -6,6 +6,7 @@ import com.fadergs.salalilas.backend.user.entity.Usuario;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -41,11 +42,11 @@ public class Encaminhamento {
     private Usuario criadoPor;
 
     @Column(name = "criado_em", nullable = false, updatable = false)
-    private OffsetDateTime criadoEm;
+    private LocalDateTime criadoEm;
 
     @PrePersist
     private void prePersist() {
-        this.criadoEm = OffsetDateTime.now();
+        this.criadoEm = LocalDateTime.now();
     }
 }
 

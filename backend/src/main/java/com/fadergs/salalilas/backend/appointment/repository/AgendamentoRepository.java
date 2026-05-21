@@ -29,14 +29,14 @@ public interface AgendamentoRepository extends JpaRepository<Agendamento, UUID> 
 
     @Query("""
         SELECT a FROM Agendamento a
-        WHERE a.data BETWEEN :inicio AND :fim
-        AND (:status IS NULL OR a.status = :status)
-        ORDER BY a.data ASC, a.horario ASC
+        JOIN FETCH a.paciente
+        WHERE a.status = :status
+        AND a.data = :data
+        ORDER BY a.horario ASC
     """)
-    List<Agendamento> findByPeriodoAndStatus(
-            @Param("inicio") LocalDate inicio,
-            @Param("fim") LocalDate fim,
-            @Param("status") StatusAtendimento status
+    List<Agendamento> findFilaByStatusAndData(
+            @Param("status") StatusAtendimento status,
+            @Param("data") LocalDate data
     );
     
     @Query("""

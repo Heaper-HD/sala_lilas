@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.time.OffsetDateTime;
 import java.util.UUID;
@@ -28,7 +30,8 @@ public class Timeline {
     private Agendamento agendamento;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "evento", columnDefinition = "tipo_evento_timeline")
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private TipoEventoTimeline evento;
 
     @Column(nullable = false, columnDefinition = "TEXT")

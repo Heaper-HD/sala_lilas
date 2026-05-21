@@ -26,7 +26,7 @@ public interface AgendamentoRepository extends JpaRepository<Agendamento, UUID> 
     List<Agendamento> findByStatusAndDataOrderByHorarioAsc(
             StatusAtendimento status, LocalDate data
     );
-    
+
     @Query("""
         SELECT a FROM Agendamento a
         WHERE a.data BETWEEN :inicio AND :fim

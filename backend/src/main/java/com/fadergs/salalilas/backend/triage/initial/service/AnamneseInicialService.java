@@ -92,7 +92,7 @@ public class AnamneseInicialService {
         );
 
         log.info("Anamnese inicial created for appointment {}", agendamentoId);
-        return toReponse(anamnese);
+        return toReponse(saved);
     }
 
     @Transactional

@@ -1,4 +1,4 @@
-package com.fadergs.salalilas.backend.referral.controller;
+package com.fadergs.salalilas.backend.queue.controller;
 
 import com.fadergs.salalilas.backend.common.enums.StatusAtendimento;
 import com.fadergs.salalilas.backend.queue.dto.FilaItemResponse;

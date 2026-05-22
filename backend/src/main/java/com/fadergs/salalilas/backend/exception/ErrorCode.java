@@ -54,6 +54,7 @@ public enum ErrorCode {
 
     // --- Generic ---
     VALIDATION_ERROR("VAL_001", "Erro de validação nos campos enviados"),
+    VALIDATION_INVALID_STATUS("VAL_002", "Status Inválido"),
     ACCESS_DENIED("SEC_001", "Acesso negado"),
     INTERNAL_ERROR("ERR_001", "Erro interno. Contate o suporte");
 

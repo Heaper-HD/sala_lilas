@@ -38,17 +38,39 @@ public interface AgendamentoRepository extends JpaRepository<Agendamento, UUID> 
             @Param("status") StatusAtendimento status,
             @Param("data") LocalDate data
     );
-    
+
     @Query("""
-        SELECT a.status, COUNT(a) FROM Agendamento a
-        WHERE a.data BETWEEN :inicio AND :fim
-        GROUP BY a.status
-    """)
+    SELECT a.status, COUNT(a) FROM Agendamento a
+    WHERE a.data BETWEEN :inicio AND :fim
+    GROUP BY a.status
+""")
     List<Object[]> contByStatusInPeriodo(
             @Param("inicio") LocalDate inicio,
             @Param("fim") LocalDate fim
     );
-    
+
+    @Query("""
+        SELECT COUNT(a) FROM Agendamento a
+        WHERE a.data BETWEEN :inicio AND :fim
+    """)
+    long countByPeriodo(
+            @Param("inicio") LocalDate inicio,
+            @Param("fim") LocalDate fim
+    );
+
+    @Query("""
+     SELECT a FROM Agendamento a
+        JOIN FETCH a.paciente
+        WHERE a.data BETWEEN :inicio AND :fim
+        AND (:status IS NULL OR a.status = :status)
+        ORDER BY a.data ASC, a.horario ASC
+    """)
+    List<Agendamento> findRelatorio(
+            @Param("inicio") LocalDate inicio,
+            @Param("fim") LocalDate fim,
+            @Param("status") StatusAtendimento status
+    );
+
     @Query("""
         SELECT a.data, COUNT(a) FROM Agendamento a
         WHERE a.data BETWEEN :inicio AND :fim

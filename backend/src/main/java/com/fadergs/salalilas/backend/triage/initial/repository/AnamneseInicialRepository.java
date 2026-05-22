@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 import java.util.UUID;
 
-interface AnamneseInicialRepository extends JpaRepository<AnamneseInicial, UUID> {
+public interface AnamneseInicialRepository extends JpaRepository<AnamneseInicial, UUID> {
     Optional<AnamneseInicial> findByAgendamentoId(UUID agendamentoId);
 
     boolean existsByAgendamentoId(UUID agendamentoId);

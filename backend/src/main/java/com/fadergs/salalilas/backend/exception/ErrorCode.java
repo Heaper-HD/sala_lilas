@@ -34,10 +34,12 @@ public enum ErrorCode {
 
     // --- Formulários (FORM) ---
     FORM_ANAMNESE_INICIAL_NOT_FOUND("FORM_001", "Anamnese inicial não encontrada"),
-    FORM_ANAMNESE_TECNICA_NOT_FOUND("FORM_002", "Anamnese técnica não encontrada"),
-    FORM_PRONTUARIO_NOT_FOUND("FORM_003", "Prontuário psicossocial não encontrado"),
-    FORM_OBS_JURIDICA_NOT_FOUND("FORM_004", "Observação jurídica não encontrada"),
-    FORM_WRONG_STATUS("FORM_005", "Status do atendimento não permite esta operação"),
+    FORM_ANAMNESE_INICIAL_EXISTS("FORM_002", "Anamnese inicial já existe"),
+    FORM_ANAMNESE_TECNICA_NOT_FOUND("FORM_003", "Anamnese técnica não encontrada"),
+    FORM_ANAMNESE_TECNICA_EXISTS("FORM_004", "Anamnese técnica já existe"),
+    FORM_PRONTUARIO_NOT_FOUND("FORM_005", "Prontuário psicossocial não encontrado"),
+    FORM_OBS_JURIDICA_NOT_FOUND("FORM_006", "Observação jurídica não encontrada"),
+    FORM_WRONG_STATUS("FORM_007", "Status do atendimento não permite esta operação"),
 
     // --- Usuário (USR) ---
     USR_NOT_FOUND("USR_001", "Usuário não encontrado"),

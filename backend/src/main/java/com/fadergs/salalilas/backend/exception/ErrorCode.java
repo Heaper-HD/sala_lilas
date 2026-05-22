@@ -38,7 +38,9 @@ public enum ErrorCode {
     FORM_ANAMNESE_TECNICA_NOT_FOUND("FORM_003", "Anamnese técnica não encontrada"),
     FORM_ANAMNESE_TECNICA_EXISTS("FORM_004", "Anamnese técnica já existe"),
     FORM_PRONTUARIO_NOT_FOUND("FORM_005", "Prontuário psicossocial não encontrado"),
+    FORM_PRONTUARIO_EXISTS("FORM_005", "Prontuário psicossocial já existe"),
     FORM_OBS_JURIDICA_NOT_FOUND("FORM_006", "Observação jurídica não encontrada"),
+    FORM_OBS_JURIDICA_EXISTS("FORM_006", "Observação jurídica já existe"),
     FORM_WRONG_STATUS("FORM_007", "Status do atendimento não permite esta operação"),
 
     // --- Usuário (USR) ---

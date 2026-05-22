@@ -91,7 +91,7 @@ public class ObsJuridicaService {
         return toResponse(obs);
     }
 
-    private ObsJuridicaResponse toResponse(ObsJuridica o) {
+    public ObsJuridicaResponse toResponse(ObsJuridica o) {
         return new ObsJuridicaResponse(
                 o.getId(),
                 o.getAgendamento().getId(),

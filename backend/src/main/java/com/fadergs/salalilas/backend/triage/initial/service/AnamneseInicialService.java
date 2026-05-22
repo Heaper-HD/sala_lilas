@@ -39,7 +39,7 @@ public class AnamneseInicialService {
         AnamneseInicial anamnese = anamneseInicialRepository
                 .findByAgendamentoId(agendamentoId)
                 .orElseThrow(() -> new ResourceNotFoundException(ErrorCode.FORM_ANAMNESE_INICIAL_NOT_FOUND));
-        return toReponse(anamnese);
+        return toResponse(anamnese);
     }
 
     @Transactional
@@ -92,7 +92,7 @@ public class AnamneseInicialService {
         );
 
         log.info("Anamnese inicial created for appointment {}", agendamentoId);
-        return toReponse(saved);
+        return toResponse(saved);
     }
 
     @Transactional
@@ -125,10 +125,10 @@ public class AnamneseInicialService {
                 .forEach(anamnese.getViolencias()::add);
 
         anamneseInicialRepository.save(anamnese);
-        return toReponse(anamnese);
+        return toResponse(anamnese);
     }
 
-    private AnamneseInicialResponse toReponse(AnamneseInicial a) {
+    public AnamneseInicialResponse toResponse(AnamneseInicial a) {
         Agendamento ag = a.getAgendamento();
         List<ViolenciaResponse> violencias = a.getViolencias().stream()
                 .map(v -> new ViolenciaResponse(

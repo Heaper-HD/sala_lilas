@@ -188,7 +188,7 @@ public class AnamneseTecnicaService {
     }
 
 
-    private AnamneseTecnicaResponse toResponse(AnamneseTecnica a) {
+    public AnamneseTecnicaResponse toResponse(AnamneseTecnica a) {
         Agendamento ag = a.getAgendamento();
 
         List<OrientacaoResponse> orientacoes = a.getOrientacoes().stream()

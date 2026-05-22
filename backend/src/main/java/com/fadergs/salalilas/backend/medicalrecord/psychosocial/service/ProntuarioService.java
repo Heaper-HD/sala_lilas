@@ -91,7 +91,7 @@ public class ProntuarioService {
         return toResponse(prontuario);
     }
 
-    private ProntuarioResponse toResponse(Prontuario p) {
+    public ProntuarioResponse toResponse(Prontuario p) {
         return new ProntuarioResponse(
                 p.getId(),
                 p.getAgendamento().getId(),

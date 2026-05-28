@@ -76,6 +76,20 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
+bootRun {
+	def envFile = rootProject.file('../.env.example')
+	if (envFile.exists()) {
+		envFile.eachLine { line ->
+			if (line && !line.startsWith('#') && line.contains('=')) {
+				def parts = line.split('=', 2)
+				if (parts.length == 2) {
+					environment parts[0].trim(), parts[1].trim()
+				}
+			}
+		}
+	}
+}
+
 tasks.withType(JavaCompile) {
 	options.compilerArgs += ['-parameters']
 }

@@ -112,7 +112,7 @@ public class AnamneseTecnicaService {
 
         timelineService.registrar(
                 agendamento,
-                TipoEventoTimeline.ANAMNESE_INICIAL_REGISTRADA,
+                TipoEventoTimeline.ANAMNESE_TECNICA_REGISTRADA,
                 "Anamnese ténica registrada por " + usuario.getNome(),
                 usuario
         );

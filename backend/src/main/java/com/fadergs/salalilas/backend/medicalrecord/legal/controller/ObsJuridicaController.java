@@ -31,7 +31,7 @@ public class ObsJuridicaController {
     }
 
     @PostMapping("/{agendamentoId}")
-    @PreAuthorize("hasAnyAuthority('TECNICA')")
+    @PreAuthorize("hasAnyAuthority('NPJ')")
     @Operation(summary = "Cria observação jurídica — somente NPJ, status deve ser JURIDICO")
     public ResponseEntity<ObsJuridicaResponse> criar(
             @PathVariable UUID agendamentoId,
@@ -42,7 +42,7 @@ public class ObsJuridicaController {
     }
 
     @PutMapping("/{agendamentoId}")
-    @PreAuthorize("hasAnyAuthority('TECNICA')")
+    @PreAuthorize("hasAnyAuthority('NPJ')")
     @Operation(summary = "Atualiza observação jurídica — somente enquanto status = JURIDICO")
     public ResponseEntity<ObsJuridicaResponse> atualizar(
             @PathVariable UUID agendamentoId,

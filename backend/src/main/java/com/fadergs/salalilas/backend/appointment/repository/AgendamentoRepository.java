@@ -30,6 +30,15 @@ public interface AgendamentoRepository extends JpaRepository<Agendamento, UUID> 
     @Query("""
         SELECT a FROM Agendamento a
         JOIN FETCH a.paciente
+        WHERE a.data = :data
+        AND a.status IN ('AGENDADO', 'TRAIGEM')
+        ORDER BY a.horario ASC
+    """)
+    List<Agendamento> findByDataAndStatusAtivoOrderByHorarioAsc(@Param("data") LocalDate data);
+
+    @Query("""
+        SELECT a FROM Agendamento a
+        JOIN FETCH a.paciente
         WHERE a.status = :status
         AND a.data = :data
         ORDER BY a.horario ASC
@@ -43,7 +52,7 @@ public interface AgendamentoRepository extends JpaRepository<Agendamento, UUID> 
     SELECT a.status, COUNT(a) FROM Agendamento a
     WHERE a.data BETWEEN :inicio AND :fim
     GROUP BY a.status
-""")
+    """)
     List<Object[]> contByStatusInPeriodo(
             @Param("inicio") LocalDate inicio,
             @Param("fim") LocalDate fim

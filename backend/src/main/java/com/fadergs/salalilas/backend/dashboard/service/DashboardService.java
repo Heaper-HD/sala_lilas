@@ -34,7 +34,7 @@ public class DashboardService {
         LocalDate targetDate = data != null ? data : LocalDate.now();
 
         return agendamentoRepository
-                .findByDataAndStatusOrderByHorarioAsc(targetDate, StatusAtendimento.AGENDADO)
+                .findByDataAndStatusAtivoOrderByHorarioAsc(targetDate)
                 .stream()
                 .map(a -> new AgendamentoDashboardResponse(
                         a.getId(),

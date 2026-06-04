@@ -1,12 +1,30 @@
-name: Docker CI
+name: Docker Build
 
 on:
   push:
-    branches: [main]
+    branches: [main, develop]
+    paths:
+      - 'backend/**'
+      - 'infrastructure/docker/**'
+      - 'docker-compose.yml'
 
 jobs:
-  placeholder:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Not implemented yet
-        run: echo "Docker CI not configured yet"
+      - uses: actions/checkout@v4
+
+      - name: Build backend Docker image
+        run: |
+          docker build \
+            -f infrastructure/docker/backend/Dockerfile \
+            -t salalilas-backend:${{ github.sha }} \
+            ./backend
+
+      - name: Build frontend Docker image
+        run: |
+          docker build \
+            -f infrastructure/docker/frontend/Dockerfile \
+            -t salalilas-frontend:${{ github.sha }} \
+            .

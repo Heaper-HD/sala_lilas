@@ -1,0 +1,73 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:18-alpine
+    container_name: salalilas_db
+    environment:
+      POSTGRES_DB: ${DB_NAME:-salalilas}
+      POSTGRES_USER: ${DB_USER:-salalilas}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-salalilas}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-salalilas}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ../infrastructure/docker/backend/Dockerfile
+    container_name: salalilas_backend
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${DB_NAME:-salalilas}
+      SPRING_DATASOURCE_USERNAME: ${DB_USER:-salalilas}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD:-salalilas}
+      FLYWAY_MIGRATION_PATH: /app/migration
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRATION_MS: ${JWT_EXPIRATION_MS:-3600000}
+      JWT_REFRESH_EXPIRATION_MS: ${JWT_REFRESH_EXPIRATION_MS:-604800000}
+      FRONTEND_CALLBACK_URL: ${FRONTEND_URL}/oauth2/callback
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-dummy}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-dummy}
+      MICROSOFT_CLIENT_ID: ${MICROSOFT_CLIENT_ID:-dummy}
+      MICROSOFT_CLIENT_SECRET: ${MICROSOFT_CLIENT_SECRET:-dummy}
+      PDF_STORAGE_PATH: /tmp/salalilas/pdfs
+    volumes:
+      - ./database/migration:/app/migration:ro
+    expose:
+      - "8080"
+
+  nginx:
+    image: nginx:alpine
+    container_name: salalilas_nginx
+    depends_on:
+      - backend
+      - frontend
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./infrastructure/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      # Uncomment when SSL is ready:
+      # - ./infrastructure/nging/certs:/etc/nginx/certs:ro
+
+  frontend:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/frontend/Dockerfile
+    container_name: salalilas_frontend
+    depends_on:
+      - backend
+    expose:
+      - "80"
+volumes:
+  pgdata:

@@ -2,11 +2,55 @@ name: Backend CI
 
 on:
   push:
-    branches: [main]
+    branches: [develop, main]
+    paths:
+      - 'backend/**'
+  pull_request:
+    branches: [develop, main]
+    paths:
+      - 'backend/**'
 
 jobs:
-  placeholder:
+  test:
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:18-alpine
+        env:
+          POSTGRES_DB: salalilas_test
+          POSTGRES_USER: salalilas
+          POSTGRES_PASSWORD: salalilas
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
-      - name: Not implemented yet
-        run: echo "Backend CI not configured yet"
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Run tests
+        working-directory: backend
+        env:
+          SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/salalilas_test
+          SPRING_DATASOURCE_USERNAME: salalilas
+          SPRING_DATASOURCE_PASSWORD: salalilas
+          FLYWAY_MIGRATION_PATH: ../database/migration
+          JWT_SECRET: test-secret-key-for-ci-minimum-32-chars
+        run: ./gradlew test --no-daemon
+
+      - name: Build JAR
+        working-directory: backend
+        env:
+          JWT_SECRET: test-secret-key-for-ci-minimum-32-chars
+        run: ./gradlew bootJar --no-daemon -x test

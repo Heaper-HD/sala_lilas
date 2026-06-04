@@ -68,8 +68,11 @@ public class RelatorioService {
             }
         }
 
-        return agendamentoRepository.findRelatorio(inicio, fim, statusEnum)
-                .stream()
+        List<Agendamento> agendamentos = statusEnum != null
+                ? agendamentoRepository.findRelatorioComStatus(inicio, fim, statusEnum)
+                : agendamentoRepository.findRelatorioSemFiltro(inicio, fim);
+
+        return agendamentos.stream()
                 .map(a -> new AtendimentoRelatorioResponse(
                         a.getId(),
                         a.getPaciente().getNome(),

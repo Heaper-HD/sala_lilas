@@ -1,12 +1,25 @@
-name: Deploy CI
+name: Deploy to Production
 
 on:
   push:
     branches: [main]
 
 jobs:
-  placeholder:
+  deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Not implemented yet
-        run: echo "Deploy CI not configured yet"
+      - uses: actions/checkout@v4
+
+      - name: Deploy to server
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            cd /opt/sala_lilas
+            git pull origin main
+            docker-compose down
+            docker-compose up -d --build
+            docker image prune -f

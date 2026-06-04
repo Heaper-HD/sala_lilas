@@ -1,4 +1,17 @@
-FROM ubuntu:latest
-LABEL authors="Heaper"
+FROM node:20-alpine AS builder
+WORKDIR /app
 
-ENTRYPOINT ["top", "-b"]
+COPY frontend/package*.json ./
+RUN npm ci
+
+COPY frontend-client/ ../frontend-client/
+
+RUN npm install ../frontend-client
+
+COPY frontend/ .
+RUN npm run build
+
+FROM nginx:alpine
+COPY --from=builder /app/dist /usr/share/nginx/html
+COPY infrastructure/docker/frontend/nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80

@@ -5,6 +5,8 @@ import com.fadergs.salalilas.backend.common.enums.PerfilUsuario;
 import com.fadergs.salalilas.backend.user.entity.Usuario;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
@@ -27,10 +29,12 @@ public class Encaminhamento {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "origem_perfil", columnDefinition = "perfil_usuario")
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private PerfilUsuario origemPerfil;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "destino_perfil", columnDefinition = "perfil_usuario")
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private PerfilUsuario destinoPerfil;
 
     @Column(name = "destino_outros", nullable = false)

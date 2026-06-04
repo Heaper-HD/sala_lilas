@@ -53,6 +53,7 @@ public class EncaminhamentoService {
                 .agendamento(agendamento)
                 .origemPerfil(origem)
                 .destinoPerfil(destino)
+                .criadoPor(usuario)
                 .build();
         encaminhamentoRepository.save(enc);
 

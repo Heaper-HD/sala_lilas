@@ -32,7 +32,7 @@ public class RelatorioService {
         long total = agendamentoRepository.countByPeriodo(inicio, fim);
 
         Map<String, Long> porStatus = new LinkedHashMap<>();
-        List<Agendamento> all = agendamentoRepository.findRelatorio(inicio, fim, null);
+        List<Agendamento> all = agendamentoRepository.findRelatorioSemFiltro(inicio, fim);
         for (StatusAtendimento s : StatusAtendimento.values()) {
             long count = all.stream()
                     .filter(a -> a.getStatus() == s)

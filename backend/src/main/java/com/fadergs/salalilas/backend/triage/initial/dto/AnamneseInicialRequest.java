@@ -13,6 +13,6 @@ public record AnamneseInicialRequest(
         @NotBlank String corRaca,
         @NotBlank String sexoGenero,
         String sexoGeneroOutro,
-        @NotEmpty List<ViolenciaRequest> violencias
+        List<ViolenciaRequest> violencias
 ) {
 }

@@ -26,11 +26,11 @@ public class Encaminhamento {
     private Agendamento agendamento;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "origem_perfil", nullable = false)
+    @Column(name = "origem_perfil", columnDefinition = "perfil_usuario")
     private PerfilUsuario origemPerfil;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "destino_perfil")
+    @Column(name = "destino_perfil", columnDefinition = "perfil_usuario")
     private PerfilUsuario destinoPerfil;
 
     @Column(name = "destino_outros", nullable = false)

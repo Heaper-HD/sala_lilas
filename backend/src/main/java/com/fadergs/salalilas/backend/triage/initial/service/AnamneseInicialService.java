@@ -21,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -67,14 +68,17 @@ public class AnamneseInicialService {
                 .sexoGeneroOutro(request.sexoGeneroOutro())
                 .build();
 
-        List<AnamneseInicialViolencia> violencias = request.violencias().stream()
-                .map(v -> AnamneseInicialViolencia.builder()
-                        .id(new AnamneseInicialViolencia.AnamneseInicialViolenciaId(
-                                null, v.violencia()))
-                        .anamneseInicial(anamnese)
-                        .violenciaOutro(v.violenciaOutro())
-                        .build())
-                .collect(Collectors.toList());
+        List<AnamneseInicialViolencia> violencias = request.violencias() != null
+                ? request.violencias().stream()
+                  .filter(v -> v.violencia() != null && !v.violencia().isBlank())
+                    .map(v -> AnamneseInicialViolencia.builder()
+                            .id(new AnamneseInicialViolencia.AnamneseInicialViolenciaId(
+                                    null, v.violencia()))
+                            .anamneseInicial(anamnese)
+                            .violenciaOutro(v.violenciaOutro())
+                            .build())
+                    .collect(Collectors.toList())
+                : new ArrayList<>();
 
         anamnese.setViolencias(violencias);
         AnamneseInicial saved = anamneseInicialRepository.save(anamnese);
@@ -115,14 +119,19 @@ public class AnamneseInicialService {
         anamnese.setSexoGeneroOutro(request.sexoGeneroOutro());
 
         anamnese.getViolencias().clear();
-        request.violencias().stream()
-                .map(v -> AnamneseInicialViolencia.builder()
-                        .id(new AnamneseInicialViolencia.AnamneseInicialViolenciaId(
-                                anamnese.getId(), v.violencia()))
-                        .anamneseInicial(anamnese)
-                        .violenciaOutro(v.violenciaOutro())
-                        .build())
-                .forEach(anamnese.getViolencias()::add);
+        List<AnamneseInicialViolencia> novasViolencias = request.violencias() != null
+                ? request.violencias().stream()
+                  .filter(v -> v.violencia() != null && !v.violencia().isBlank())
+                  .map(v -> AnamneseInicialViolencia.builder()
+                            .id(new AnamneseInicialViolencia.AnamneseInicialViolenciaId(
+                                    anamnese.getId(), v.violencia()))
+                            .anamneseInicial(anamnese)
+                            .violenciaOutro(v.violenciaOutro())
+                            .build())
+                  .collect(Collectors.toList())
+                : new ArrayList<>();
+
+        anamnese.getViolencias().addAll(novasViolencias);
 
         anamneseInicialRepository.save(anamnese);
         return toResponse(anamnese);

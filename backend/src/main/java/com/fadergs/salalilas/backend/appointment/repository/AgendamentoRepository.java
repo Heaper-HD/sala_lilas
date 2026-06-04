@@ -31,7 +31,7 @@ public interface AgendamentoRepository extends JpaRepository<Agendamento, UUID> 
         SELECT a FROM Agendamento a
         JOIN FETCH a.paciente
         WHERE a.data = :data
-        AND a.status IN ('AGENDADO', 'TRAIGEM')
+        AND a.status IN ('AGENDADO', 'TRIAGEM')
         ORDER BY a.horario ASC
     """)
     List<Agendamento> findByDataAndStatusAtivoOrderByHorarioAsc(@Param("data") LocalDate data);

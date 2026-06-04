@@ -70,7 +70,7 @@ public class PacienteService {
                     return new PacienteSummaryResponse(
                             p.getId(),
                             p.getNome(),
-                            p.getEmail(),
+                            p.getCpf(),
                             ultimoStatus,
                             ultimoAtendimento
                     );

@@ -1,0 +1,23 @@
+# TODO: conmfigurar pipeline de deploy
+name: Deploy
+
+on:
+    push:
+        branches: [production, testing]
+
+jobs:
+    deploy-testing:
+        if: github.ref == 'refs/heads/testing'
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout
+            uses: actions/checkout@v3
+          # TODO: SSH na VPS de testes
+          # TODO: docker compose -f compose.testing.yaml up --build -d
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Ceckout
+            uses: actions/checkout@v3
+          # TODO: SSH na VPS de producao
+          # TODO: docker compose up --build - d

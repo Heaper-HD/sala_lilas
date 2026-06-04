@@ -134,27 +134,21 @@ export default function DashboardInicio() {
                   </td>
                   {perfil === PERFIS.ATENDENTE ? (
                     <td className="px-3 py-2">
-                      <div className="flex flex-wrap gap-2">
-                        <button
-                          type="button"
-                          onClick={() => handleCheckin(a.agendamentoId)}
-                          className="rounded-md bg-purple-600 px-2.5 py-1 text-xs font-semibold text-white hover:bg-purple-700"
+                      <div className="flex flex-wrap gap-2">                        
+                        <Link
+                          to={`/painel/atendimento/${a.agendamentoId}`}
+                          className="rounded-md border border-purple-200 px-2.5 py-1 text-xs font-medium text-purple-700 hover:bg-purple-500 hover:text-white"
                         >
-                          Check-in
-                        </button>
+                          Atender
+                        </Link>
                         <button
                           type="button"
                           onClick={() => handleNaoVeio(a.agendamentoId)}
-                          className="rounded-md border border-slate-300 px-2.5 py-1 text-xs font-medium text-slate-700 hover:bg-slate-50"
+                          className="rounded-md border border-slate-300 px-2.5 py-1 text-xs font-medium text-slate-700 hover:bg-red-500 hover:text-white"
                         >
                           Não veio
                         </button>
-                        <Link
-                          to={`/painel/atendimento/${a.agendamentoId}`}
-                          className="rounded-md border border-purple-200 px-2.5 py-1 text-xs font-medium text-purple-700 hover:bg-purple-50"
-                        >
-                          Triagem
-                        </Link>
+                        
                       </div>
                     </td>
                   ) : null}

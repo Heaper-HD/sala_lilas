@@ -1,16 +1,39 @@
-# React + Vite
+# Sala Lilás — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React 18 + Vite 7 + Tailwind CSS 4, integrado à API Spring (`/api/v1`).
 
-Currently, two official plugins are available:
+## Configuração
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+cd frontend
+cp .env.example .env
+npm install
+```
 
-## React Compiler
+Variável `VITE_API_BASE_URL` (padrão em dev com proxy: `/api/v1`).
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Desenvolvimento
 
-## Expanding the ESLint configuration
+1. Suba o backend em `http://localhost:8080`
+2. `npm run dev` — proxy Vite encaminha `/api` para o backend
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Rotas
+
+| Rota | Descrição |
+|------|-----------|
+| `/` | Página inicial |
+| `/agendamento` | Agendamento público |
+| `/login` | Autenticação JWT |
+| `/painel` | Dashboard (atendente/admin/técnica) |
+| `/painel/filas` | Filas por setor |
+| `/painel/pacientes` | Lista de pacientes |
+| `/painel/atendimento/:id` | Formulários e encaminhamentos |
+| `/painel/relatorios` | KPIs (admin) |
+| `/painel/usuarios` | Gestão de usuários (admin) |
+
+## Build
+
+```bash
+npm run build
+npm run preview
+```

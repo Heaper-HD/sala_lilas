@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: sala-lilas
+
+  flyway:
+    enabled: true
+    locations: filesystem:../database/migrations

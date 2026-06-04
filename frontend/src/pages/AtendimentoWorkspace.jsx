@@ -389,7 +389,7 @@ export default function AtendimentoWorkspace() {
             onChange={(v) =>
               setAnamneseInicial((p) => ({
                 ...p,
-                violencias: [{ violencia: v, violenciaOutro: "" }]
+                violencias: [{ violencia: v, violenciaOutro: "teste" }]
               }))
             }
           />

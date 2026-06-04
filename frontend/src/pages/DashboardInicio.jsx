@@ -148,6 +148,13 @@ export default function DashboardInicio() {
                         >
                           Não veio
                         </button>
+                        <button
+                          type="button"
+                          onClick={() => handleCheckin(a.agendamentoId)}
+                          className="rounded-md bg-purple-600 px-2.5 py-1 text-xs font-semibold text-white hover:bg-purple-700"
+                        >
+                          Check-in
+                        </button>
                         
                       </div>
                     </td>

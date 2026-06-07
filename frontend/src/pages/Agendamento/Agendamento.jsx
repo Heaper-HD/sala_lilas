@@ -1,9 +1,9 @@
 import { CalendarDays, Clock3, Mail, UserRound } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { agendamentoApi } from "../api/index.js";
-import { formatTime, todayIso } from "../lib/format.js";
-import LoadingSpinner from "../components/LoadingSpinner";
+import { agendamentoApi } from "../../api/index.js";
+import { formatTime, todayIso } from "../../lib/format.js";
+import LoadingSpinner from "../../components/LoadingSpinner.jsx";
 
 const initialForm = {
   nome: "",

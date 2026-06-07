@@ -2,7 +2,7 @@ import { LockKeyhole, Mail } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 
 export default function Login() {
   const [email, setEmail] = useState("");

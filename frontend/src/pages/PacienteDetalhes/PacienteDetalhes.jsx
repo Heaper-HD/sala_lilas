@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { pacienteApi } from "../api/index.js";
-import LoadingSpinner from "../components/LoadingSpinner";
-import StatusBadge from "../components/StatusBadge";
-import { formatDate, formatTime } from "../lib/format.js";
+import { pacienteApi } from "../../api/index.js";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import StatusBadge from "../../components/StatusBadge";
+import { formatDate, formatTime } from "../../lib/format.js";
 
 export default function PacienteDetalhes() {
   const { id } = useParams();

@@ -4,16 +4,16 @@ import LayoutPainel from "./components/LayoutPainel";
 import ProtectedAuthRoute from "./components/ProtectedAuthRoute";
 import ProtectedPanelRoute from "./components/ProtectedPanelRoute";
 import { PERFIS } from "./lib/perfil.js";
-import Agendamento from "./pages/Agendamento";
-import AtendimentoWorkspace from "./pages/AtendimentoWorkspace";
-import DashboardInicio from "./pages/DashboardInicio";
-import Filas from "./pages/Filas";
-import HomePage from "./pages/HomePage";
-import Login from "./pages/Login";
-import PacienteDetalhes from "./pages/PacienteDetalhes";
-import PacientesLista from "./pages/PacientesLista";
-import Relatorios from "./pages/Relatorios";
-import Usuarios from "./pages/Usuarios";
+import Agendamento from "./pages/Agendamento/Agendamento.jsx";
+import AtendimentoWorkspace from "./pages/AtendimentoWorkspace/AtendimentoWorkspace.jsx";
+import DashboardInicio from "./pages/DashboardInicio/DashboardInicio.jsx";
+import Filas from "./pages/Filas/Filas.jsx";
+import HomePage from "./pages/HomePage/HomePage.jsx";
+import Login from "./pages/Login/Login.jsx";
+import PacienteDetalhes from "./pages/PacienteDetalhes/PacienteDetalhes.jsx";
+import PacientesLista from "./pages/PacientesLista/PacientesLista.jsx";
+import Relatorios from "./pages/Relatorios/Relatorios.jsx";
+import Usuarios from "./pages/Usuarios/Usuarios.jsx";
 
 export default function App() {
   return (

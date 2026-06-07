@@ -2,10 +2,10 @@ import { Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
-import { pacienteApi } from "../api/index.js";
-import LoadingSpinner from "../components/LoadingSpinner";
-import StatusBadge from "../components/StatusBadge";
-import { formatDate } from "../lib/format.js";
+import { pacienteApi } from "../../api/index.js";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import StatusBadge from "../../components/StatusBadge";
+import { formatDate } from "../../lib/format.js";
 
 export default function PacientesLista() {
   const [search, setSearch] = useState("");

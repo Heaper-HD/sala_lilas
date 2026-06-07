@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { relatorioApi } from "../api/index.js";
-import LoadingSpinner from "../components/LoadingSpinner";
-import StatusBadge from "../components/StatusBadge";
-import { formatDate, formatTime, todayIso } from "../lib/format.js";
+import { relatorioApi } from "../../api/index.js";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import StatusBadge from "../../components/StatusBadge";
+import { formatDate, formatTime, todayIso } from "../../lib/format.js";
 
 function monthAgoIso() {
   const d = new Date();

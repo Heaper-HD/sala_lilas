@@ -2,12 +2,12 @@ import { ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
-import { filaApi } from "../api/index.js";
-import LoadingSpinner from "../components/LoadingSpinner";
-import StatusBadge from "../components/StatusBadge";
-import { useAuth } from "../context/AuthContext";
-import { filaEndpointForPerfil } from "../lib/perfil.js";
-import { formatDateTime, formatTime, todayIso } from "../lib/format.js";
+import { filaApi } from "../../api/index.js";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import StatusBadge from "../../components/StatusBadge";
+import { useAuth } from "../../context/AuthContext";
+import { filaEndpointForPerfil } from "../../lib/perfil.js";
+import { formatDateTime, formatTime, todayIso } from "../../lib/format.js";
 
 export default function Filas() {
   const { perfil } = useAuth();

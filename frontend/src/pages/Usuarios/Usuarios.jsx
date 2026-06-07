@@ -1,9 +1,9 @@
 import { Plus, Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { usuarioApi } from "../api/index.js";
-import LoadingSpinner from "../components/LoadingSpinner";
-import { PERFIL_LABELS, PERFIS, perfilLabel } from "../lib/perfil.js";
+import { usuarioApi } from "../../api/index.js";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import { PERFIL_LABELS, PERFIS, perfilLabel } from "../../lib/perfil.js";
 
 const emptyForm = {
   nome: "",

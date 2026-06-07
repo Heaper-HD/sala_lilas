@@ -9,10 +9,10 @@ import {
   obsJuridicaApi,
   pdfApi,
   prontuarioApi
-} from "../api/index.js";
-import LoadingSpinner from "../components/LoadingSpinner";
-import { useAuth } from "../context/AuthContext";
-import { PERFIS } from "../lib/perfil.js";
+} from "../../api/index.js";
+import LoadingSpinner from "../../components/LoadingSpinner.jsx";
+import { useAuth } from "../../context/AuthContext.jsx";
+import { PERFIS } from "../../lib/perfil.js";
 
 const emptyAnamneseInicial = {
   tipoAtendimento: "",

@@ -119,6 +119,8 @@ public class EncaminhamentoService {
                 .agendamento(agendamento)
                 .origemPerfil(perfil)
                 .destinoPerfil(null)
+                .destinoOutros(true)
+                .criadoPor(usuario)
                 .build();
         encaminhamentoRepository.save(enc);
 

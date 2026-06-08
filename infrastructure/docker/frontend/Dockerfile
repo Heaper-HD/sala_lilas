@@ -4,9 +4,9 @@ WORKDIR /app
 COPY frontend/package*.json ./
 RUN npm ci
 
-COPY frontend-client/ ../frontend-client/
+COPY frontend/frontend-client/ ./frontend-client/
 
-RUN npm install ../frontend-client
+RUN npm install ./frontend-client
 
 COPY frontend/ .
 RUN npm run build

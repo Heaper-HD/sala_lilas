@@ -7,6 +7,7 @@ import StatusBadge from "../../components/StatusBadge";
 import { useAuth } from "../../context/AuthContext";
 import { PERFIS } from "../../lib/perfil.js";
 import { formatTime, todayIso } from "../../lib/format.js";
+import "./DashboardInicioStyle.css";
 
 export default function DashboardInicio() {
   const { perfil } = useAuth();
@@ -60,9 +61,9 @@ export default function DashboardInicio() {
 
   if (![PERFIS.ATENDENTE, PERFIS.TECNICA, PERFIS.ADMIN].includes(perfil)) {
     return (
-      <section className="space-y-4">
-        <h1 className="text-2xl font-bold text-slate-800">Bem-vinda ao painel</h1>
-        <p className="text-sm text-slate-600">
+      <section className="dashboard-welcome">
+        <h1 className="header-title">Bem-vinda ao painel</h1>
+        <p className="header-subtitle">
           Use o menu lateral para acessar filas, pacientes ou relatórios conforme
           seu perfil.
         </p>
@@ -71,36 +72,36 @@ export default function DashboardInicio() {
   }
 
   return (
-    <section className="space-y-6">
-      <header className="flex flex-wrap items-end justify-between gap-4">
+    <section className="dashboard-container">
+      <header className="dashboard-header">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Agenda do dia</h1>
-          <p className="mt-1 text-sm text-slate-600">
+          <h1 className="header-title">Agenda do dia</h1>
+          <p className="header-subtitle">
             Agendamentos com status AGENDADO e ações de recepção.
           </p>
         </div>
-        <label className="text-sm">
-          <span className="mb-1 block font-medium text-slate-700">Data</span>
+        <label className="date-filter-label">
+          <span className="date-filter-span">Data</span>
           <input
             type="date"
             value={data}
             onChange={(e) => setData(e.target.value)}
-            className="rounded-lg border border-slate-300 px-3 py-2 text-sm"
+            className="date-filter-input"
           />
         </label>
       </header>
 
       {contadores ? (
-        <div className="grid gap-4 md:grid-cols-2">
-          <article className="rounded-xl border border-purple-100 bg-white p-5 shadow-sm">
-            <p className="text-sm text-slate-600">Aguardando</p>
-            <p className="mt-1 text-3xl font-bold text-purple-700">
+        <div className="counters-grid">
+          <article className="counter-card">
+            <p className="counter-label">Aguardando</p>
+            <p className="counter-value">
               {contadores.aguardando}
             </p>
           </article>
-          <article className="rounded-xl border border-purple-100 bg-white p-5 shadow-sm">
-            <p className="text-sm text-slate-600">Em atendimento</p>
-            <p className="mt-1 text-3xl font-bold text-purple-700">
+          <article className="counter-card">
+            <p className="counter-label">Em atendimento</p>
+            <p className="counter-value">
               {contadores.emAtendimento}
             </p>
           </article>
@@ -110,52 +111,51 @@ export default function DashboardInicio() {
       {loading ? (
         <LoadingSpinner />
       ) : (
-        <article className="overflow-x-auto rounded-xl border border-purple-100 bg-white p-5 shadow-sm">
-          <table className="min-w-full text-sm">
+        <article className="table-wrapper">
+          <table className="dashboard-table">
             <thead>
-              <tr className="border-b border-slate-200 text-left text-slate-600">
-                <th className="px-3 py-2 font-semibold">Horário</th>
-                <th className="px-3 py-2 font-semibold">Paciente</th>
-                <th className="px-3 py-2 font-semibold">Status</th>
+              <tr className="table-head-row">
+                <th className="table-th">Horário</th>
+                <th className="table-th">Paciente</th>
+                <th className="table-th">Status</th>
                 {perfil === PERFIS.ATENDENTE ? (
-                  <th className="px-3 py-2 font-semibold">Ações</th>
+                  <th className="table-th">Ações</th>
                 ) : null}
               </tr>
             </thead>
             <tbody>
               {agendamentos.map((a) => (
-                <tr key={a.agendamentoId} className="border-b border-slate-100">
-                  <td className="px-3 py-2 font-medium text-purple-700">
+                <tr key={a.agendamentoId} className="table-body-row">
+                  <td className="table-td td-time">
                     {formatTime(a.horario)}
                   </td>
-                  <td className="px-3 py-2">{a.pacienteNome}</td>
-                  <td className="px-3 py-2">
+                  <td className="table-td">{a.pacienteNome}</td>
+                  <td className="table-td">
                     <StatusBadge status={a.status} />
                   </td>
                   {perfil === PERFIS.ATENDENTE ? (
-                    <td className="px-3 py-2">
-                      <div className="flex flex-wrap gap-2">                        
+                    <td className="table-td">
+                      <div className="actions-container">                        
                         <Link
                           to={`/painel/atendimento/${a.agendamentoId}`}
-                          className="rounded-md border border-purple-200 px-2.5 py-1 text-xs font-medium text-purple-700 hover:bg-purple-500 hover:text-white"
+                          className="btn-action btn-atender"
                         >
                           Atender
                         </Link>
                         <button
                           type="button"
                           onClick={() => handleNaoVeio(a.agendamentoId)}
-                          className="rounded-md border border-slate-300 px-2.5 py-1 text-xs font-medium text-slate-700 hover:bg-red-500 hover:text-white"
+                          className="btn-action btn-nao-veio"
                         >
                           Não veio
                         </button>
                         <button
                           type="button"
                           onClick={() => handleCheckin(a.agendamentoId)}
-                          className="rounded-md bg-purple-600 px-2.5 py-1 text-xs font-semibold text-white hover:bg-purple-700"
+                          className="btn-action btn-checkin"
                         >
                           Check-in
                         </button>
-                        
                       </div>
                     </td>
                   ) : null}
@@ -164,7 +164,7 @@ export default function DashboardInicio() {
             </tbody>
           </table>
           {agendamentos.length === 0 ? (
-            <p className="py-4 text-sm text-slate-500">
+            <p className="empty-message">
               Nenhum agendamento para esta data.
             </p>
           ) : null}

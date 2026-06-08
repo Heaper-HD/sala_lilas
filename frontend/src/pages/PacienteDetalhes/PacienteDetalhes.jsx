@@ -5,6 +5,7 @@ import { pacienteApi } from "../../api/index.js";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import StatusBadge from "../../components/StatusBadge";
 import { formatDate, formatTime } from "../../lib/format.js";
+import "./PacienteDetalhesStyle.css";
 
 export default function PacienteDetalhes() {
   const { id } = useParams();
@@ -39,44 +40,44 @@ export default function PacienteDetalhes() {
   if (loading) return <LoadingSpinner />;
   if (!paciente) {
     return (
-      <p className="text-sm text-slate-500">Paciente não encontrado.</p>
+      <p className="mensagem-erro">Paciente não encontrado.</p>
     );
   }
 
   return (
-    <section className="space-y-6">
+    <section className="paciente-detalhes-container">
       <button
         type="button"
         onClick={() => navigate("/painel/pacientes")}
-        className="text-sm font-medium text-purple-700 hover:underline"
+        className="btn-voltar"
       >
         ← Voltar à lista
       </button>
 
-      <header className="rounded-xl border border-purple-100 bg-purple-50 p-5">
-        <h1 className="text-xl font-bold text-purple-800">{paciente.nome}</h1>
-        <p className="mt-2 text-sm text-slate-700">
+      <header className="detalhes-header">
+        <h1 className="detalhes-nome">{paciente.nome}</h1>
+        <p className="detalhes-info">
           CPF: {paciente.cpf} · E-mail: {paciente.email || "—"}
         </p>
       </header>
 
-      <article className="rounded-xl border border-purple-100 bg-white p-5 shadow-sm">
-        <h2 className="text-lg font-semibold text-slate-800">Atendimentos</h2>
-        <ul className="mt-4 space-y-3">
+      <article className="card-section">
+        <h2 className="card-title">Atendimentos</h2>
+        <ul className="atendimentos-list">
           {(paciente.atendimentos || []).map((a) => (
             <li
               key={a.agendamentoId}
-              className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-slate-100 p-3"
+              className="atendimento-item"
             >
               <div>
-                <p className="text-sm font-medium">
+                <p className="atendimento-data">
                   {formatDate(a.data)} às {formatTime(a.horario)}
                 </p>
                 <StatusBadge status={a.status} />
               </div>
               <Link
                 to={`/painel/atendimento/${a.agendamentoId}`}
-                className="rounded-md bg-purple-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-purple-700"
+                className="btn-abrir"
               >
                 Abrir
               </Link>
@@ -84,23 +85,23 @@ export default function PacienteDetalhes() {
           ))}
         </ul>
         {(!paciente.atendimentos || paciente.atendimentos.length === 0) && (
-          <p className="mt-2 text-sm text-slate-500">Sem atendimentos registrados.</p>
+          <p className="mensagem-vazia">Sem atendimentos registrados.</p>
         )}
       </article>
 
       {timeline.length > 0 ? (
-        <article className="rounded-xl border border-purple-100 bg-white p-5 shadow-sm">
-          <h2 className="text-lg font-semibold text-slate-800">Linha do tempo</h2>
-          <ul className="mt-4 space-y-3 border-l-2 border-purple-200 pl-4">
+        <article className="card-section">
+          <h2 className="card-title">Linha do tempo</h2>
+          <ul className="timeline-list">
             {timeline.map((ev, idx) => (
-              <li key={idx} className="text-sm">
-                <p className="font-medium text-purple-700">
+              <li key={idx} className="timeline-item">
+                <p className="timeline-evento">
                   {ev.evento}
                   {ev.criadoEm ? ` · ${formatDate(ev.criadoEm)}` : ""}
                 </p>
-                <p className="text-slate-600">{ev.descricao}</p>
+                <p className="timeline-descricao">{ev.descricao}</p>
                 {ev.responsavel ? (
-                  <p className="text-xs text-slate-500">{ev.responsavel}</p>
+                  <p className="timeline-responsavel">{ev.responsavel}</p>
                 ) : null}
               </li>
             ))}

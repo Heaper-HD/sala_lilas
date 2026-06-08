@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { usuarioApi } from "../../api/index.js";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import { PERFIL_LABELS, PERFIS, perfilLabel } from "../../lib/perfil.js";
+import "./UsuariosStyle.css";
 
 const emptyForm = {
   nome: "",
@@ -69,18 +70,18 @@ export default function Usuarios() {
   };
 
   return (
-    <section className="space-y-6">
-      <header className="flex flex-wrap items-center justify-between gap-4">
+    <section className="usuarios-container">
+      <header className="usuarios-header">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Usuários</h1>
-          <p className="mt-1 text-sm text-slate-600">
+          <h1 className="header-title">Usuários</h1>
+          <p className="header-subtitle">
             Gestão de colaboradores do sistema.
           </p>
         </div>
         <button
           type="button"
           onClick={() => setShowForm((v) => !v)}
-          className="inline-flex items-center gap-2 rounded-lg bg-purple-600 px-4 py-2 text-sm font-semibold text-white hover:bg-purple-700"
+          className="btn-novo"
         >
           <Plus size={16} />
           Novo usuário
@@ -90,15 +91,15 @@ export default function Usuarios() {
       {showForm ? (
         <form
           onSubmit={handleCriar}
-          className="rounded-xl border border-purple-100 bg-white p-5 shadow-sm"
+          className="form-container"
         >
-          <h2 className="mb-4 font-semibold">Cadastrar colaborador</h2>
-          <div className="grid gap-3 sm:grid-cols-2">
+          <h2 className="form-title">Cadastrar colaborador</h2>
+          <div className="form-grid">
             <input
               placeholder="Nome"
               value={form.nome}
               onChange={(e) => setForm((p) => ({ ...p, nome: e.target.value }))}
-              className="rounded-lg border border-slate-300 px-3 py-2 text-sm"
+              className="form-input"
               required
             />
             <input
@@ -106,7 +107,7 @@ export default function Usuarios() {
               placeholder="E-mail"
               value={form.email}
               onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))}
-              className="rounded-lg border border-slate-300 px-3 py-2 text-sm"
+              className="form-input"
               required
             />
             <input
@@ -114,14 +115,14 @@ export default function Usuarios() {
               placeholder="Senha (mín. 8)"
               value={form.senha}
               onChange={(e) => setForm((p) => ({ ...p, senha: e.target.value }))}
-              className="rounded-lg border border-slate-300 px-3 py-2 text-sm"
+              className="form-input"
               required
               minLength={8}
             />
             <select
               value={form.perfil}
               onChange={(e) => setForm((p) => ({ ...p, perfil: e.target.value }))}
-              className="rounded-lg border border-slate-300 px-3 py-2 text-sm"
+              className="form-input"
             >
               {Object.entries(PERFIL_LABELS).map(([value, label]) => (
                 <option key={value} value={value}>
@@ -133,16 +134,16 @@ export default function Usuarios() {
           <button
             type="submit"
             disabled={submitting}
-            className="mt-4 rounded-lg bg-purple-600 px-4 py-2 text-sm font-semibold text-white disabled:opacity-60"
+            className="btn-submit"
           >
             {submitting ? "Salvando..." : "Criar"}
           </button>
         </form>
       ) : null}
 
-      <div className="max-w-md relative">
+      <div className="search-wrapper">
         <Search
-          className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+          className="search-icon"
           size={18}
         />
         <input
@@ -150,46 +151,42 @@ export default function Usuarios() {
           value={busca}
           onChange={(e) => setBusca(e.target.value)}
           placeholder="Buscar por nome ou e-mail"
-          className="w-full rounded-lg border border-slate-300 py-2.5 pl-10 pr-3 text-sm"
+          className="search-input"
         />
       </div>
 
       {loading ? (
         <LoadingSpinner />
       ) : (
-        <article className="overflow-x-auto rounded-xl border border-purple-100 bg-white p-5 shadow-sm">
-          <table className="min-w-full text-sm">
+        <article className="table-container">
+          <table className="usuarios-table">
             <thead>
-              <tr className="border-b text-left text-slate-600">
-                <th className="px-3 py-2">Nome</th>
-                <th className="px-3 py-2">E-mail</th>
-                <th className="px-3 py-2">Perfil</th>
-                <th className="px-3 py-2">Status</th>
-                <th className="px-3 py-2">Ações</th>
+              <tr className="table-header-row">
+                <th className="table-th">Nome</th>
+                <th className="table-th">E-mail</th>
+                <th className="table-th">Perfil</th>
+                <th className="table-th">Status</th>
+                <th className="table-th">Ações</th>
               </tr>
             </thead>
             <tbody>
               {usuarios.map((u) => (
-                <tr key={u.id} className="border-b border-slate-100">
-                  <td className="px-3 py-2 font-medium">{u.nome}</td>
-                  <td className="px-3 py-2">{u.email}</td>
-                  <td className="px-3 py-2">{perfilLabel(u.perfil)}</td>
-                  <td className="px-3 py-2">
+                <tr key={u.id} className="table-body-row">
+                  <td className="table-td td-nome">{u.nome}</td>
+                  <td className="table-td">{u.email}</td>
+                  <td className="table-td">{perfilLabel(u.perfil)}</td>
+                  <td className="table-td">
                     <span
-                      className={
-                        u.ativo
-                          ? "text-emerald-600"
-                          : "text-slate-400"
-                      }
+                      className={u.ativo ? "status-ativo" : "status-inativo"}
                     >
                       {u.ativo ? "Ativo" : "Inativo"}
                     </span>
                   </td>
-                  <td className="px-3 py-2">
+                  <td className="table-td">
                     <button
                       type="button"
                       onClick={() => toggleAtivo(u)}
-                      className="text-xs font-medium text-purple-700 hover:underline"
+                      className="btn-acao"
                     >
                       {u.ativo ? "Desativar" : "Reativar"}
                     </button>

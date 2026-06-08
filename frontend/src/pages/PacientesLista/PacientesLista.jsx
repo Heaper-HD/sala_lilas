@@ -6,6 +6,7 @@ import { pacienteApi } from "../../api/index.js";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import StatusBadge from "../../components/StatusBadge";
 import { formatDate } from "../../lib/format.js";
+import "./PacientesListaStyle.css";
 
 export default function PacientesLista() {
   const [search, setSearch] = useState("");
@@ -33,22 +34,22 @@ export default function PacientesLista() {
   }, [search]);
 
   return (
-    <section className="space-y-6">
+    <section className="pacientes-container">
       <header>
-        <h1 className="text-2xl font-bold text-slate-800">Pacientes</h1>
-        <p className="mt-1 text-sm text-slate-600">
+        <h1 className="pacientes-title">Pacientes</h1>
+        <p className="pacientes-subtitle">
           Consulte prontuários e histórico de atendimentos.
         </p>
       </header>
 
-      <div className="max-w-md">
-        <label className="block">
-          <span className="mb-1.5 block text-sm font-medium text-slate-700">
+      <div className="search-wrapper">
+        <label style={{ display: "block" }}>
+          <span className="search-label-text">
             Pesquisar
           </span>
-          <div className="relative">
+          <div className="input-container">
             <Search
-              className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+              className="search-icon"
               size={18}
             />
             <input
@@ -56,7 +57,7 @@ export default function PacientesLista() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Nome ou CPF"
-              className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-10 pr-3 text-sm outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200"
+              className="search-input"
             />
           </div>
         </label>
@@ -65,34 +66,34 @@ export default function PacientesLista() {
       {loading ? (
         <LoadingSpinner />
       ) : (
-        <article className="overflow-x-auto rounded-xl border border-purple-100 bg-white p-5 shadow-sm">
-          <table className="min-w-full text-sm">
+        <article className="table-container">
+          <table className="pacientes-table">
             <thead>
-              <tr className="border-b border-slate-200 text-left text-slate-600">
-                <th className="px-3 py-2 font-semibold">Nome</th>
-                <th className="px-3 py-2 font-semibold">CPF</th>
-                <th className="px-3 py-2 font-semibold">Último atendimento</th>
-                <th className="px-3 py-2 font-semibold">Status</th>
-                <th className="px-3 py-2 font-semibold">Ações</th>
+              <tr className="table-head-row">
+                <th className="table-th">Nome</th>
+                <th className="table-th">CPF</th>
+                <th className="table-th">Último atendimento</th>
+                <th className="table-th">Status</th>
+                <th className="table-th">Ações</th>
               </tr>
             </thead>
             <tbody>
               {pacientes.map((p) => (
-                <tr key={p.pacienteId} className="border-b border-slate-100">
-                  <td className="px-3 py-2 font-medium">{p.nome}</td>
-                  <td className="px-3 py-2 text-slate-600">{p.cpf}</td>
-                  <td className="px-3 py-2">{formatDate(p.ultimoAtendimento)}</td>
-                  <td className="px-3 py-2">
+                <tr key={p.pacienteId} className="table-body-row">
+                  <td className="table-td td-nome">{p.nome}</td>
+                  <td className="table-td td-cpf">{p.cpf}</td>
+                  <td className="table-td">{formatDate(p.ultimoAtendimento)}</td>
+                  <td className="table-td">
                     {p.ultimoStatus ? (
                       <StatusBadge status={p.ultimoStatus} />
                     ) : (
                       "—"
                     )}
                   </td>
-                  <td className="px-3 py-2">
+                  <td className="table-td">
                     <Link
                       to={`/painel/pacientes/${p.pacienteId}`}
-                      className="rounded-md bg-purple-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-purple-700"
+                      className="btn-detalhes"
                     >
                       Ver detalhes
                     </Link>
@@ -102,7 +103,7 @@ export default function PacientesLista() {
             </tbody>
           </table>
           {pacientes.length === 0 ? (
-            <p className="py-4 text-sm text-slate-500">Nenhum paciente encontrado.</p>
+            <p className="empty-message">Nenhum paciente encontrado.</p>
           ) : null}
         </article>
       )}

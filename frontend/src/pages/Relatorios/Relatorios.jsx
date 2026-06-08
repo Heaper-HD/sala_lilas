@@ -4,6 +4,7 @@ import { relatorioApi } from "../../api/index.js";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import StatusBadge from "../../components/StatusBadge";
 import { formatDate, formatTime, todayIso } from "../../lib/format.js";
+import "./RelatoriosStyle.css";
 
 function monthAgoIso() {
   const d = new Date();
@@ -45,31 +46,31 @@ export default function Relatorios() {
   }, [dataInicio, dataFim]);
 
   return (
-    <section className="space-y-6">
+    <section className="relatorios-container">
       <header>
-        <h1 className="text-2xl font-bold text-slate-800">Relatórios</h1>
-        <p className="mt-1 text-sm text-slate-600">
+        <h1 className="relatorios-title">Relatórios</h1>
+        <p className="relatorios-subtitle">
           Indicadores e listagem de atendimentos (acesso administrador).
         </p>
       </header>
 
-      <div className="flex flex-wrap gap-4">
-        <label className="text-sm">
-          <span className="mb-1 block font-medium">Início</span>
+      <div className="filters-wrapper">
+        <label className="filter-label">
+          <span className="filter-label-text">Início</span>
           <input
             type="date"
             value={dataInicio}
             onChange={(e) => setDataInicio(e.target.value)}
-            className="rounded-lg border border-slate-300 px-3 py-2"
+            className="filter-input"
           />
         </label>
-        <label className="text-sm">
-          <span className="mb-1 block font-medium">Fim</span>
+        <label className="filter-label">
+          <span className="filter-label-text">Fim</span>
           <input
             type="date"
             value={dataFim}
             onChange={(e) => setDataFim(e.target.value)}
-            className="rounded-lg border border-slate-300 px-3 py-2"
+            className="filter-input"
           />
         </label>
       </div>
@@ -79,53 +80,53 @@ export default function Relatorios() {
       ) : (
         <>
           {kpis ? (
-            <div className="grid gap-4 md:grid-cols-3">
-              <article className="rounded-xl border border-purple-100 bg-white p-5 shadow-sm">
-                <p className="text-sm text-slate-600">Total no período</p>
-                <p className="mt-1 text-3xl font-bold text-purple-700">
+            <div className="kpis-grid">
+              <article className="card-wrapper">
+                <p className="kpi-label">Total no período</p>
+                <p className="kpi-value-primary">
                   {kpis.total}
                 </p>
               </article>
               {Object.entries(kpis.porStatus || {}).map(([status, count]) => (
                 <article
                   key={status}
-                  className="rounded-xl border border-purple-100 bg-white p-5 shadow-sm"
+                  className="card-wrapper"
                 >
                   <StatusBadge status={status} />
-                  <p className="mt-2 text-2xl font-bold text-slate-800">{count}</p>
+                  <p className="kpi-value-secondary">{count}</p>
                 </article>
               ))}
             </div>
           ) : null}
 
-          <article className="overflow-x-auto rounded-xl border border-purple-100 bg-white p-5 shadow-sm">
-            <h2 className="mb-4 text-lg font-semibold">Atendimentos</h2>
-            <table className="min-w-full text-sm">
+          <article className="card-wrapper table-card">
+            <h2 className="table-title">Atendimentos</h2>
+            <table className="relatorios-table">
               <thead>
-                <tr className="border-b text-left text-slate-600">
-                  <th className="px-3 py-2">Data</th>
-                  <th className="px-3 py-2">Paciente</th>
-                  <th className="px-3 py-2">Horário</th>
-                  <th className="px-3 py-2">Status</th>
-                  <th className="px-3 py-2">Atendente</th>
+                <tr className="table-header-row">
+                  <th className="table-th">Data</th>
+                  <th className="table-th">Paciente</th>
+                  <th className="table-th">Horário</th>
+                  <th className="table-th">Status</th>
+                  <th className="table-th">Atendente</th>
                 </tr>
               </thead>
               <tbody>
                 {atendimentos.map((a) => (
-                  <tr key={a.agendamentoId} className="border-b border-slate-100">
-                    <td className="px-3 py-2">{formatDate(a.data)}</td>
-                    <td className="px-3 py-2">{a.pacienteNome}</td>
-                    <td className="px-3 py-2">{formatTime(a.horario)}</td>
-                    <td className="px-3 py-2">
+                  <tr key={a.agendamentoId} className="table-body-row">
+                    <td className="table-td">{formatDate(a.data)}</td>
+                    <td className="table-td">{a.pacienteNome}</td>
+                    <td className="table-td">{formatTime(a.horario)}</td>
+                    <td className="table-td">
                       <StatusBadge status={a.status} />
                     </td>
-                    <td className="px-3 py-2 text-slate-600">{a.atendente || "—"}</td>
+                    <td className="table-td-muted">{a.atendente || "—"}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
             {atendimentos.length === 0 ? (
-              <p className="py-4 text-sm text-slate-500">Sem dados no período.</p>
+              <p className="empty-message">Sem dados no período.</p>
             ) : null}
           </article>
         </>

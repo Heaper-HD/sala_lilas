@@ -1,0 +1,142 @@
+.relatorios-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.relatorios-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.relatorios-subtitle {
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  color: #475569;
+}
+
+.filters-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.filter-label {
+  font-size: 0.875rem;
+}
+
+.filter-label-text {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+  color: #0f172a;
+}
+
+.filter-input {
+  border-radius: 0.5rem;
+  border: 1px solid #cbd5e1;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  outline: none;
+  background-color: #ffffff;
+  transition: border-color 0.2s;
+}
+
+.filter-input:focus {
+  border-color: #a855f7;
+}
+
+.kpis-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .kpis-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.card-wrapper {
+  border-radius: 0.75rem;
+  border: 1px solid #f3e8ff;
+  background-color: #ffffff;
+  padding: 1.25rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.card-wrapper.table-card {
+  overflow-x: auto;
+}
+
+.kpi-label {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #475569;
+}
+
+.kpi-value-primary {
+  margin-top: 0.25rem;
+  margin-bottom: 0;
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #7e22ce;
+}
+
+.kpi-value-secondary {
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.table-title {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.relatorios-table {
+  min-width: 100%;
+  font-size: 0.875rem;
+  border-collapse: collapse;
+}
+
+.table-header-row {
+  border-bottom: 1px solid #e2e8f0;
+  text-align: left;
+  color: #475569;
+}
+
+.table-th {
+  padding: 0.5rem 0.75rem;
+  font-weight: 600;
+}
+
+.table-body-row {
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.table-td {
+  padding: 0.5rem 0.75rem;
+  vertical-align: middle;
+}
+
+.table-td-muted {
+  padding: 0.5rem 0.75rem;
+  vertical-align: middle;
+  color: #475569;
+}
+
+.empty-message {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  font-size: 0.875rem;
+  color: #64748b;
+  margin: 0;
+}

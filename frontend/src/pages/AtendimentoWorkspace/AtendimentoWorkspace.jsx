@@ -13,6 +13,7 @@ import {
 import LoadingSpinner from "../../components/LoadingSpinner.jsx";
 import { useAuth } from "../../context/AuthContext.jsx";
 import { PERFIS } from "../../lib/perfil.js";
+import "./AtendimentoWorkspaceStyle.css";
 
 const emptyAnamneseInicial = {
   tipoAtendimento: "",
@@ -256,22 +257,22 @@ export default function AtendimentoWorkspace() {
   if (loading) return <LoadingSpinner />;
 
   return (
-    <section className="space-y-6">
+    <section className="workspace-container">
       <button
         type="button"
         onClick={() => navigate(-1)}
-        className="text-sm font-medium text-purple-700 hover:underline"
+        className="btn-back"
       >
         ← Voltar
       </button>
 
-      <header className="flex flex-wrap items-center justify-between gap-4">
-        <h1 className="text-2xl font-bold text-slate-800">{titulo}</h1>
+      <header className="workspace-header">
+        <h1 className="workspace-title">{titulo}</h1>
         {[PERFIS.TECNICA, PERFIS.CIS, PERFIS.NPJ, PERFIS.ADMIN].includes(perfil) ? (
           <button
             type="button"
             onClick={downloadPdf}
-            className="inline-flex items-center gap-2 rounded-lg border border-purple-200 px-3 py-2 text-sm font-medium text-purple-700 hover:bg-purple-50"
+            className="btn-pdf"
           >
             <Download size={16} />
             Baixar PDF
@@ -279,16 +280,16 @@ export default function AtendimentoWorkspace() {
         ) : null}
       </header>
 
-      <article className="rounded-xl border border-slate-200 bg-white p-4">
-        <h2 className="mb-3 font-semibold text-slate-800">Encaminhamentos</h2>
-        <div className="flex flex-wrap gap-2">
+      <article className="encaminhamentos-card">
+        <h2 className="encaminhamentos-title">Encaminhamentos</h2>
+        <div className="encaminhamentos-actions">
           {[PERFIS.ATENDENTE, PERFIS.CIS, PERFIS.NPJ].includes(perfil) ? (
             <button
               type="button"
               onClick={() =>
                 encaminhar(encaminhamentoApi.paraTecnica, "Equipe Técnica")
               }
-              className="rounded-md bg-purple-600 px-3 py-1.5 text-xs font-semibold text-white"
+              className="btn-encaminhar bg-purple"
             >
               → Técnica
             </button>
@@ -299,7 +300,7 @@ export default function AtendimentoWorkspace() {
               onClick={() =>
                 encaminhar(encaminhamentoApi.paraPsicologia, "Psicologia")
               }
-              className="rounded-md bg-indigo-600 px-3 py-1.5 text-xs font-semibold text-white"
+              className="btn-encaminhar bg-indigo"
             >
               → Psicologia
             </button>
@@ -310,7 +311,7 @@ export default function AtendimentoWorkspace() {
               onClick={() =>
                 encaminhar(encaminhamentoApi.paraJuridico, "Jurídico")
               }
-              className="rounded-md bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white"
+              className="btn-encaminhar bg-blue"
             >
               → Jurídico
             </button>
@@ -321,7 +322,7 @@ export default function AtendimentoWorkspace() {
               onClick={() =>
                 encaminhar(encaminhamentoApi.paraOutros, "Outros (finalizar)")
               }
-              className="rounded-md border border-slate-300 px-3 py-1.5 text-xs font-medium"
+              className="btn-encaminhar-outros"
             >
               Outros + PDF
             </button>
@@ -332,7 +333,7 @@ export default function AtendimentoWorkspace() {
               onClick={() =>
                 encaminhar(encaminhamentoApi.finalizar, "Finalizado")
               }
-              className="rounded-md bg-emerald-600 px-3 py-1.5 text-xs font-semibold text-white"
+              className="btn-encaminhar bg-emerald"
             >
               Finalizar
             </button>
@@ -342,7 +343,7 @@ export default function AtendimentoWorkspace() {
 
       {[PERFIS.ATENDENTE, PERFIS.ADMIN].includes(perfil) ? (
         <FormSection title="Anamnese inicial (triagem)">
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className="grid-inputs">
             <Input
               label="Tipo de atendimento"
               value={anamneseInicial.tipoAtendimento}
@@ -370,7 +371,7 @@ export default function AtendimentoWorkspace() {
               }
             />
           </div>
-          <label className="mt-3 flex items-center gap-2 text-sm">
+          <label className="checkbox-label-block">
             <input
               type="checkbox"
               checked={anamneseInicial.primeiroAtendimento}
@@ -399,7 +400,7 @@ export default function AtendimentoWorkspace() {
 
       {perfil === PERFIS.TECNICA ? (
         <FormSection title="Anamnese técnica">
-          <div className="grid gap-2 sm:grid-cols-2">
+          <div className="grid-checkboxes">
             {[
               ["riscoIminente", "Risco iminente"],
               ["agressorConvive", "Agressor convive"],
@@ -407,7 +408,7 @@ export default function AtendimentoWorkspace() {
               ["redeApoio", "Rede de apoio"],
               ["filhosDependentes", "Filhos dependentes"]
             ].map(([key, label]) => (
-              <label key={key} className="flex items-center gap-2 text-sm">
+              <label key={key} className="checkbox-label-inline">
                 <input
                   type="checkbox"
                   checked={anamneseTecnica[key]}
@@ -469,24 +470,25 @@ export default function AtendimentoWorkspace() {
   );
 }
 
+// Subcomponentes locais limpos e adaptados para o arquivo CSS externo
 function FormSection({ title, children }) {
   return (
-    <article className="rounded-xl border border-purple-100 bg-white p-5 shadow-sm">
-      <h2 className="mb-4 text-lg font-semibold text-slate-800">{title}</h2>
-      <div className="space-y-3">{children}</div>
+    <article className="form-section-card">
+      <h2 className="form-section-title">{title}</h2>
+      <div className="form-section-body">{children}</div>
     </article>
   );
 }
 
 function Input({ label, value, onChange }) {
   return (
-    <label className="block text-sm">
-      <span className="mb-1 block font-medium text-slate-700">{label}</span>
+    <label className="form-field-label">
+      <span className="form-field-span">{label}</span>
       <input
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-purple-500"
+        className="form-field-control"
       />
     </label>
   );
@@ -494,13 +496,13 @@ function Input({ label, value, onChange }) {
 
 function Textarea({ label, value, onChange }) {
   return (
-    <label className="block text-sm">
-      <span className="mb-1 block font-medium text-slate-700">{label}</span>
+    <label className="form-field-label">
+      <span className="form-field-span">{label}</span>
       <textarea
         rows={4}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-purple-500"
+        className="form-field-control"
       />
     </label>
   );
@@ -512,7 +514,7 @@ function SaveButton({ onClick, saving }) {
       type="button"
       disabled={saving}
       onClick={onClick}
-      className="mt-2 inline-flex items-center gap-2 rounded-lg bg-purple-600 px-4 py-2 text-sm font-semibold text-white hover:bg-purple-700 disabled:opacity-60"
+      className="btn-save"
     >
       <Save size={16} />
       {saving ? "Salvando..." : "Salvar"}

@@ -4,7 +4,6 @@
   gap: 2.5rem;
 }
 
-/* Banner Hero */
 .hero-banner {
   border-radius: 1rem;
   background: linear-gradient(to bottom right, #9649df, #6b21a8);
@@ -47,7 +46,6 @@
   }
 }
 
-/* Botões do Banner */
 .hero-actions {
   margin-top: 2rem;
   display: flex;
@@ -85,7 +83,6 @@
   background-color: #7e22ce;
 }
 
-/* Grid de Funcionalidades */
 .features-grid {
   display: grid;
   gap: 1rem;
@@ -97,14 +94,12 @@
   }
 }
 
-/* Cards de Funcionalidade */
 .feature-card {
   border-radius: 0.75rem;
   border: 1px solid #f3e8ff;
   background-color: #ffffff;
   padding: 1.25rem;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  
 }
 
 .feature-icon {

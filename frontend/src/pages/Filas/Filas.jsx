@@ -8,6 +8,7 @@ import StatusBadge from "../../components/StatusBadge";
 import { useAuth } from "../../context/AuthContext";
 import { filaEndpointForPerfil } from "../../lib/perfil.js";
 import { formatDateTime, formatTime, todayIso } from "../../lib/format.js";
+import "./FilasStyle.css";
 
 export default function Filas() {
   const { perfil } = useAuth();
@@ -41,21 +42,21 @@ export default function Filas() {
   }, [tipo, data]);
 
   return (
-    <section className="space-y-6">
-      <header className="flex flex-wrap items-end justify-between gap-4">
+    <section className="filas-container">
+      <header className="filas-header">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Fila de atendimento</h1>
-          <p className="mt-1 text-sm text-slate-600">
+          <h1 className="header-title">Fila de atendimento</h1>
+          <p className="header-subtitle">
             Pacientes aguardando atendimento no seu setor.
           </p>
         </div>
-        <label className="text-sm">
-          <span className="mb-1 block font-medium text-slate-700">Data</span>
+        <label className="date-filter-label">
+          <span className="date-filter-span">Data</span>
           <input
             type="date"
             value={data}
             onChange={(e) => setData(e.target.value)}
-            className="rounded-lg border border-slate-300 px-3 py-2 text-sm"
+            className="date-filter-input"
           />
         </label>
       </header>
@@ -63,21 +64,21 @@ export default function Filas() {
       {loading ? (
         <LoadingSpinner />
       ) : (
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="filas-grid">
           {itens.map((item) => (
             <article
               key={item.agendamentoId}
-              className="rounded-xl border border-purple-100 bg-white p-4 shadow-sm"
+              className="fila-card"
             >
-              <h3 className="font-semibold text-slate-800">{item.pacienteNome}</h3>
-              <p className="mt-1 text-sm text-slate-600">
+              <h3 className="card-title">{item.pacienteNome}</h3>
+              <p className="card-text">
                 Horário: {formatTime(item.horario)}
               </p>
-              <div className="mt-2">
+              <div className="card-status-wrapper">
                 <StatusBadge status={item.status} />
               </div>
               {item.encaminhadoPor ? (
-                <p className="mt-2 text-xs text-slate-500">
+                <p className="card-meta">
                   Encaminhado por {item.encaminhadoPor}
                   {item.encaminhadoEm
                     ? ` em ${formatDateTime(item.encaminhadoEm)}`
@@ -86,7 +87,7 @@ export default function Filas() {
               ) : null}
               <Link
                 to={`/painel/atendimento/${item.agendamentoId}`}
-                className="mt-4 inline-flex items-center gap-1 rounded-md bg-purple-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-purple-700"
+                className="btn-abrir-atendimento"
               >
                 Abrir atendimento
                 <ArrowRight size={14} />
@@ -97,7 +98,7 @@ export default function Filas() {
       )}
 
       {!loading && itens.length === 0 ? (
-        <p className="text-sm text-slate-500">Nenhum item na fila para esta data.</p>
+        <p className="empty-message">Nenhum item na fila para esta data.</p>
       ) : null}
     </section>
   );

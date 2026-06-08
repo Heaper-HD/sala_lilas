@@ -149,13 +149,13 @@ export default function DashboardInicio() {
                         >
                           Não veio
                         </button>
-                        <button
+                        {/*<button
                           type="button"
                           onClick={() => handleCheckin(a.agendamentoId)}
                           className="btn-action btn-checkin"
                         >
                           Check-in
-                        </button>
+                        </button>*/}
                       </div>
                     </td>
                   ) : null}

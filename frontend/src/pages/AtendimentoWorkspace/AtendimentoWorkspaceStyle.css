@@ -219,3 +219,21 @@
   opacity: 0.6;
   cursor: not-allowed;
 }
+
+.tipo-atendimento-checkbox{
+  padding: '0.5rem 0.75rem';
+  font-size: 1.2rem;
+
+}
+
+.tipo-atendimento-checkbox-radio{
+  cursor: pointer;
+  transform: scale(1.25);
+}
+
+.grid-checkboxes{
+  gap: 1rem;
+  padding: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+}

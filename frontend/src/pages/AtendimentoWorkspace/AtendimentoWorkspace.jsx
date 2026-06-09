@@ -196,7 +196,7 @@ export default function AtendimentoWorkspace()
     try
     {
       const fn = hasInicial ? anamneseInicialApi.atualizar : anamneseInicialApi.criar;
-      await dashboardApi.checkin(agendamentoId);
+      !hasInicial ? await dashboardApi.checkin(agendamentoId) : null;
       await fn(agendamentoId, anamneseInicial);
       setHasInicial(true);
       toast.success("Anamnese inicial salva.");

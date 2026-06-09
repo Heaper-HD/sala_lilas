@@ -41,6 +41,7 @@ public class AgendamentoPublicoService {
 
         List<LocalTime> disponiveis = todos.stream()
                 .filter(h -> !ocupados.contains(h))
+                .filter(h -> !data.isEqual(LocalDate.now()) || h.isAfter(LocalTime.now()))
                 .toList();
 
         return new HorariosDisponiveisResponse(disponiveis);
@@ -54,7 +55,7 @@ public class AgendamentoPublicoService {
 
         validarDiaUtil(request.data());
 
-        validarHorario(request.horario());
+        validarHorario(request.data(), request.horario());
 
         if (agendamentoRepository.existsByDataAndHorario(request.data(), request.horario())) {
             throw new BusinessException(ErrorCode.AGD_SLOT_UNAVAILABLE);
@@ -88,19 +89,28 @@ public class AgendamentoPublicoService {
     }
 
     private void validarDiaUtil(LocalDate data) {
+        if (data.isBefore(LocalDate.now())) {
+            throw new BusinessException(ErrorCode.AGD_INVALID_DATE);
+        }
+
         DayOfWeek dia = data.getDayOfWeek();
         if (dia == DayOfWeek.SATURDAY || dia == DayOfWeek.SUNDAY) {
             throw new BusinessException(ErrorCode.AGD_INVALID_DATE);
         }
     }
 
-    private void validarHorario(LocalTime horario) {
+    private void validarHorario(LocalDate data, LocalTime horario) {
         if (horario.isBefore(INICIO) || !horario.isBefore(FIM)) {
             throw new BusinessException(ErrorCode.AGD_INVALID_TIME);
         }
+
         int minutos = horario.getHour() * 60 + horario.getMinute();
         int inicio = INICIO.getHour() * 60;
         if ((minutos - inicio) % INTERVALO_MINUTOS != 0) {
+            throw new BusinessException(ErrorCode.AGD_INVALID_TIME);
+        }
+
+        if (data.isEqual(LocalDate.now()) && !horario.isAfter(LocalTime.now())) {
             throw new BusinessException(ErrorCode.AGD_INVALID_TIME);
         }
     }

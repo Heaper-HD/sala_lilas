@@ -537,7 +537,7 @@ export default function AtendimentoWorkspace()
         </FormSection>
       ) : null}
 
-      {[PERFIS.TECNICA, PERFIS.NPJ].includes(perfil) ? (
+      {[ PERFIS.NPJ].includes(perfil) ? (
         <FormSection title="Observação jurídica">
           <Textarea
             label="Encaminhamentos legais"

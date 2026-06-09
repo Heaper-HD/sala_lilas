@@ -424,7 +424,7 @@ export default function AtendimentoWorkspace()
             <div>
               <label className="form-field-label">Cor/raça</label>
               <select className="form-control" value={anamneseInicial.corRaca}
-                onChange={(e) => setInicial((p) => ({ ...p, corRaca: e.target.value }))}>
+                onChange={(e) => setAnamneseInicial((p) => ({ ...p, corRaca: e.target.value }))}>
                 <option value="">Selecione</option>
                 {["Branca", "Preta", "Parda", "Amarela", "Indígena", "Não informado / Prefere não declarar"].map((o) => (
                   <option key={o}>{o}</option>
@@ -434,7 +434,7 @@ export default function AtendimentoWorkspace()
             <div>
               <label className="form-field-label">Sexo/gênero</label>
               <select className="form-control" value={anamneseInicial.sexoGenero}
-                onChange={(e) => setInicial((p) => ({ ...p, sexoGenero: e.target.value }))}>
+                onChange={(e) => setAnamneseInicial((p) => ({ ...p, sexoGenero: e.target.value }))}>
                 <option value="">Selecione</option>
                 {["Mulher cisgênero", "Mulher trans", "Homem cisgênero", "Homem trans", "Pessoa não binária", "Prefere não declarar"].map((o) => (
                   <option key={o}>{o}</option>

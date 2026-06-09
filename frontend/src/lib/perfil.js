@@ -43,19 +43,19 @@ export function filaEndpointForPerfil(perfil) {
 export const MENU_ITEMS = [
   {
     to: "/painel",
-    label: "Início",
+    label: "Dashboard",
     feature: "dashboard",
     end: true
-  },
-  {
-    to: "/painel/pacientes",
-    label: "Pacientes",
-    feature: "pacientes"
   },
   {
     to: "/painel/filas",
     label: "Filas",
     feature: "filas"
+  },
+  {
+    to: "/painel/pacientes",
+    label: "Pacientes",
+    feature: "pacientes"
   },
   {
     to: "/painel/relatorios",

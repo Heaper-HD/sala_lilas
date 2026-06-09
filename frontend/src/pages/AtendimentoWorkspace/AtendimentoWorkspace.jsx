@@ -323,68 +323,7 @@ export default function AtendimentoWorkspace()
         ) : null}
       </header>
 
-      <article className="encaminhamentos-card">
-        <h2 className="encaminhamentos-title">Encaminhamentos</h2>
-        <div className="encaminhamentos-actions">
-          {[PERFIS.ATENDENTE, PERFIS.CIS, PERFIS.NPJ].includes(perfil) ? (
-            <button
-              type="button"
-              onClick={() =>
-                encaminhar(encaminhamentoApi.paraTecnica, "Equipe Técnica")
-              }
-              className="btn-encaminhar bg-purple"
-            >
-              → Técnica
-            </button>
-          ) : null}
-          {[PERFIS.TECNICA, PERFIS.NPJ].includes(perfil) ? (
-            <button
-              type="button"
-              onClick={() =>
-                encaminhar(encaminhamentoApi.paraPsicologia, "Psicologia")
-              }
-              className="btn-encaminhar bg-indigo"
-            >
-              → Psicologia
-            </button>
-          ) : null}
-          {[PERFIS.TECNICA, PERFIS.CIS].includes(perfil) ? (
-            <button
-              type="button"
-              onClick={() =>
-                encaminhar(encaminhamentoApi.paraJuridico, "Jurídico")
-              }
-              className="btn-encaminhar bg-blue"
-            >
-              → Jurídico
-            </button>
-          ) : null}
-          {[PERFIS.TECNICA, PERFIS.CIS, PERFIS.NPJ].includes(perfil) ? (
-            <button
-              type="button"
-              onClick={() =>
-                encaminhar(encaminhamentoApi.paraOutros, "Outros (finalizar)")
-              }
-              className="btn-encaminhar-outros"
-            >
-              Outros + PDF
-            </button>
-          ) : null}
-          {perfil === PERFIS.TECNICA ? (
-            <button
-              type="button"
-              onClick={() =>
-                encaminhar(encaminhamentoApi.finalizar, "Finalizado")
-              }
-              className="btn-encaminhar bg-emerald"
-            >
-              Finalizar
-            </button>
-          ) : null}
-        </div>
-      </article>
-
-      {[PERFIS.ATENDENTE, PERFIS.ADMIN].includes(perfil) ? (
+      {[PERFIS.ATENDENTE, PERFIS.ADMIN, PERFIS.TECNICA].includes(perfil) ? (
 
         <FormSection title="Anamnese inicial (triagem)">
           <div className="grid-checkboxes">
@@ -472,11 +411,14 @@ export default function AtendimentoWorkspace()
               }))
             }
           />
-          <SaveButton onClick={saveInicial} saving={saving} />
+          { [PERFIS.ATENDENTE].includes(perfil) ?(
+            <SaveButton onClick={saveInicial} saving={saving} />
+          ) : null
+          }
         </FormSection>
       ) : null}
 
-      {perfil === PERFIS.TECNICA ? (
+      {[PERFIS.TECNICA, PERFIS.ADMIN, PERFIS.CIS, PERFIS.NPJ].includes(perfil) ? (
         <FormSection title="Anamnese técnica">
           <div className="grid-checkboxes">
             {[
@@ -522,7 +464,10 @@ export default function AtendimentoWorkspace()
               setAnamneseTecnica((p) => ({ ...p, observacoes: v }))
             }
           />
-          <SaveButton onClick={saveTecnica} saving={saving} />
+          { [PERFIS.TECNICA].includes(perfil) ?(
+            <SaveButton onClick={saveTecnica} saving={saving} />
+          ) : null
+          }
         </FormSection>
       ) : null}
 
@@ -533,20 +478,86 @@ export default function AtendimentoWorkspace()
             value={prontuario.observacoesPsicossocias}
             onChange={(v) => setProntuario({ observacoesPsicossocias: v })}
           />
-          <SaveButton onClick={saveProntuario} saving={saving} />
+          { [PERFIS.CIS].includes(perfil) ?(
+            <SaveButton onClick={saveProntuario} saving={saving} />
+          ) : null
+          }
         </FormSection>
       ) : null}
 
-      {[ PERFIS.NPJ].includes(perfil) ? (
+      {[PERFIS.NPJ].includes(perfil) ? (
         <FormSection title="Observação jurídica">
           <Textarea
             label="Encaminhamentos legais"
             value={obsJuridica.encaminhamentosLegais}
             onChange={(v) => setObsJuridica({ encaminhamentosLegais: v })}
           />
-          <SaveButton onClick={saveObs} saving={saving} />
+          { [PERFIS.NPJ].includes(perfil) ?(
+            <SaveButton onClick={saveObs} saving={saving} />
+          ) : null
+          }
         </FormSection>
       ) : null}
+      <article className="encaminhamentos-card">
+        <h2 className="encaminhamentos-title">Encaminhar para</h2>
+        <div className="encaminhamentos-actions">
+          {[PERFIS.ATENDENTE, PERFIS.CIS, PERFIS.NPJ].includes(perfil) ? (
+            <button
+              type="button"
+              onClick={() =>
+                encaminhar(encaminhamentoApi.paraTecnica, "Equipe Técnica")
+              }
+              className="btn-encaminhar bg-purple"
+            >
+              → Técnica
+            </button>
+          ) : null}
+          {[PERFIS.TECNICA, PERFIS.NPJ].includes(perfil) ? (
+            <button
+              type="button"
+              onClick={() =>
+                encaminhar(encaminhamentoApi.paraPsicologia, "Psicologia")
+              }
+              className="btn-encaminhar bg-indigo"
+            >
+              → Psicologia
+            </button>
+          ) : null}
+          {[PERFIS.TECNICA, PERFIS.CIS].includes(perfil) ? (
+            <button
+              type="button"
+              onClick={() =>
+                encaminhar(encaminhamentoApi.paraJuridico, "Jurídico")
+              }
+              className="btn-encaminhar bg-blue"
+            >
+              → Jurídico
+            </button>
+          ) : null}
+          {[PERFIS.TECNICA, PERFIS.CIS, PERFIS.NPJ].includes(perfil) ? (
+            <button
+              type="button"
+              onClick={() =>
+                encaminhar(encaminhamentoApi.paraOutros, "Outros (finalizar)")
+              }
+              className="btn-encaminhar-outros"
+            >
+              Outros + PDF
+            </button>
+          ) : null}
+          {perfil === PERFIS.TECNICA ? (
+            <button
+              type="button"
+              onClick={() =>
+                encaminhar(encaminhamentoApi.finalizar, "Finalizado")
+              }
+              className="btn-encaminhar bg-emerald"
+            >
+              Finalizar
+            </button>
+          ) : null}
+        </div>
+      </article>
     </section>
   );
 }

@@ -30,6 +30,7 @@ public class EncaminhamentoPermissionValidator {
 
     public static boolean isOwnerOfStatus(PerfilUsuario usuarioPerfil, StatusAtendimento currentStatus) {
         return switch (currentStatus) {
+            case AGENDADO, TRIAGEM -> usuarioPerfil == PerfilUsuario.ATENDENTE;
             case TECNICA     -> usuarioPerfil == PerfilUsuario.TECNICA;
             case PSICOLOGIA  -> usuarioPerfil == PerfilUsuario.CIS;
             case JURIDICO    -> usuarioPerfil == PerfilUsuario.NPJ;

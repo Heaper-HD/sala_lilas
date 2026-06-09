@@ -42,8 +42,14 @@ public class EncaminhamentoService {
         Usuario usuario = findUsuarioOrThrow(usuarioId);
         PerfilUsuario origem = usuario.getPerfil();
 
-        if (!List.of(StatusAtendimento.TECNICA, StatusAtendimento.PSICOLOGIA, StatusAtendimento.JURIDICO).contains(agendamento.getStatus())) {
-            throw new BusinessException(ErrorCode.AGD_INVALID_STATUS_TRANSITION);
+        if (origem == PerfilUsuario.ATENDENTE) {
+            if (destino != PerfilUsuario.TECNICA) {
+                throw new BusinessException(ErrorCode.AGD_INVALID_STATUS_TRANSITION);
+            }
+        } else {
+            if (!List.of(StatusAtendimento.TECNICA, StatusAtendimento.PSICOLOGIA, StatusAtendimento.JURIDICO).contains(agendamento.getStatus())) {
+                throw new BusinessException(ErrorCode.AGD_INVALID_STATUS_TRANSITION);
+            }
         }
 
         if (!EncaminhamentoPermissionValidator.isOwnerOfStatus(origem, agendamento.getStatus())) {
@@ -124,10 +130,6 @@ public class EncaminhamentoService {
         Agendamento agendamento = findOrThrow(agendamentoId);
         Usuario usuario = findUsuarioOrThrow(usuarioId);
         PerfilUsuario perfil = usuario.getPerfil();
-
-        if (!List.of(StatusAtendimento.TECNICA, StatusAtendimento.PSICOLOGIA, StatusAtendimento.JURIDICO).contains(agendamento.getStatus())) {
-            throw new BusinessException(ErrorCode.AGD_INVALID_STATUS_TRANSITION);
-        }
 
         if (!EncaminhamentoPermissionValidator.isOwnerOfStatus(usuario.getPerfil(), agendamento.getStatus())) {
             throw new BusinessException(ErrorCode.ENC_NOT_ALLOWED);

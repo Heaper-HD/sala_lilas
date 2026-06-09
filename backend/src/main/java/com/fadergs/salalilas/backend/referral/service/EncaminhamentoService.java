@@ -88,6 +88,11 @@ public class EncaminhamentoService {
         Agendamento agendamento = findOrThrow(agendamentoId);
         Usuario usuario = findUsuarioOrThrow(usuarioId);
 
+        if (!List.of(StatusAtendimento.TECNICA, StatusAtendimento.PSICOLOGIA, StatusAtendimento.JURIDICO).contains(agendamento.getStatus())) {
+            throw new BusinessException(ErrorCode.AGD_INVALID_STATUS_TRANSITION);
+        }
+
+
         if (usuario.getPerfil() != PerfilUsuario.TECNICA) {
             throw new BusinessException(ErrorCode.ENC_NOT_ALLOWED);
         }

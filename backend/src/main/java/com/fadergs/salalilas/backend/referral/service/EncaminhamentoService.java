@@ -46,6 +46,10 @@ public class EncaminhamentoService {
             throw new BusinessException(ErrorCode.AGD_INVALID_STATUS_TRANSITION);
         }
 
+        if (!EncaminhamentoPermissionValidator.isOwnerOfStatus(origem, agendamento.getStatus())) {
+            throw new BusinessException(ErrorCode.ENC_NOT_ALLOWED);
+        }
+
         if (!EncaminhamentoPermissionValidator.isAllowed(origem, destino)) {
             throw new BusinessException(ErrorCode.ENC_NOT_ALLOWED);
         }

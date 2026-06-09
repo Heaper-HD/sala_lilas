@@ -27,4 +27,13 @@ public class EncaminhamentoPermissionValidator {
             default         -> throw new IllegalArgumentException("No status mapping for perfil: " + destino);
         };
     }
+
+    public static boolean isOwnerOfStatus(PerfilUsuario usuarioPerfil, StatusAtendimento currentStatus) {
+        return switch (currentStatus) {
+            case TECNICA     -> usuarioPerfil == PerfilUsuario.TECNICA;
+            case PSICOLOGIA  -> usuarioPerfil == PerfilUsuario.CIS;
+            case JURIDICO    -> usuarioPerfil == PerfilUsuario.NPJ;
+            default          -> false;
+        };
+    }
 }

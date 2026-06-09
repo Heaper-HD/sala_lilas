@@ -19,7 +19,8 @@ const ACCESS = {
   pacientes: [PERFIS.TECNICA, PERFIS.CIS, PERFIS.NPJ, PERFIS.ADMIN],
   filas: [PERFIS.TECNICA, PERFIS.CIS, PERFIS.NPJ, PERFIS.ADMIN],
   relatorios: [PERFIS.ADMIN],
-  usuarios: [PERFIS.ADMIN]
+  usuarios: [PERFIS.ADMIN],
+  criarusuarios: [PERFIS.ADMIN]
 };
 
 export function perfilLabel(perfil) {
@@ -65,5 +66,10 @@ export const MENU_ITEMS = [
     to: "/painel/usuarios",
     label: "Usuários",
     feature: "usuarios"
+  },
+  {
+    to: "/painel/criarusuarios",
+    label: "Criar Usuários",
+    feature: "criarusuarios"
   }
 ];

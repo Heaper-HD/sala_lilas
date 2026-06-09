@@ -14,6 +14,7 @@ import PacienteDetalhes from "./pages/PacienteDetalhes/PacienteDetalhes.jsx";
 import PacientesLista from "./pages/PacientesLista/PacientesLista.jsx";
 import Relatorios from "./pages/Relatorios/Relatorios.jsx";
 import Usuarios from "./pages/Usuarios/Usuarios.jsx";
+import CriarUsuarios from "./pages/CriarUsuarios/CriarUsuarios.jsx";
 
 export default function App() {
   return (
@@ -77,6 +78,22 @@ export default function App() {
           element={
             <ProtectedPanelRoute allowedPerfis={[PERFIS.ADMIN]}>
               <Usuarios />
+            </ProtectedPanelRoute>
+          }
+        />
+        <Route
+          path="usuarios"
+          element={
+            <ProtectedPanelRoute allowedPerfis={[PERFIS.ADMIN]}>
+              <Usuarios />
+            </ProtectedPanelRoute>
+          }
+        />
+        <Route
+          path="criarusuarios"
+          element={
+            <ProtectedPanelRoute allowedPerfis={[PERFIS.ADMIN]}>
+              <CriarUsuarios />
             </ProtectedPanelRoute>
           }
         />

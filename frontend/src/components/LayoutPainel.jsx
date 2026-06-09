@@ -18,7 +18,8 @@ const icons = {
   "/painel/pacientes": Users,
   "/painel/filas": RouteIcon,
   "/painel/relatorios": BarChart3,
-  "/painel/usuarios": UserCog
+  "/painel/usuarios": UserCog,
+  "/painel/criarusuarios": UserCog
 };
 
 export default function LayoutPainel() {

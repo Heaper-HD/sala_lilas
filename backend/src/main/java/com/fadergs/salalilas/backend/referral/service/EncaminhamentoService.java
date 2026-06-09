@@ -92,6 +92,10 @@ public class EncaminhamentoService {
             throw new BusinessException(ErrorCode.ENC_NOT_ALLOWED);
         }
 
+        if (!EncaminhamentoPermissionValidator.isOwnerOfStatus(origem, agendamento.getStatus())) {
+            throw new BusinessException(ErrorCode.ENC_NOT_ALLOWED);
+        }
+
         agendamento.setStatus(StatusAtendimento.FINALIZADO);
         agendamentoRepository.save(agendamento);
 

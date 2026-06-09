@@ -92,7 +92,7 @@ public class EncaminhamentoService {
             throw new BusinessException(ErrorCode.ENC_NOT_ALLOWED);
         }
 
-        if (!EncaminhamentoPermissionValidator.isOwnerOfStatus(origem, agendamento.getStatus())) {
+        if (!EncaminhamentoPermissionValidator.isOwnerOfStatus(usuario.getPerfil(), agendamento.getStatus())) {
             throw new BusinessException(ErrorCode.ENC_NOT_ALLOWED);
         }
 

@@ -42,7 +42,7 @@ public class EncaminhamentoService {
         Usuario usuario = findUsuarioOrThrow(usuarioId);
         PerfilUsuario origem = usuario.getPerfil();
 
-        if (List.of(StatusAtendimento.TECNICA, StatusAtendimento.PSICOLOGIA, StatusAtendimento.JURIDICO).contains(agendamento.getStatus())) {
+        if (!List.of(StatusAtendimento.TECNICA, StatusAtendimento.PSICOLOGIA, StatusAtendimento.JURIDICO).contains(agendamento.getStatus())) {
             throw new BusinessException(ErrorCode.AGD_INVALID_STATUS_TRANSITION);
         }
 

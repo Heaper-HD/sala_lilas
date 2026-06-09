@@ -3,15 +3,15 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import
-  {
-    anamneseInicialApi,
-    anamneseTecnicaApi,
-    encaminhamentoApi,
-    obsJuridicaApi,
-    pdfApi,
-    prontuarioApi,
-    dashboardApi
-  } from "../../api/index.js";
+{
+  anamneseInicialApi,
+  anamneseTecnicaApi,
+  encaminhamentoApi,
+  obsJuridicaApi,
+  pdfApi,
+  prontuarioApi,
+  dashboardApi
+} from "../../api/index.js";
 import LoadingSpinner from "../../components/LoadingSpinner.jsx";
 import { useAuth } from "../../context/AuthContext.jsx";
 import { PERFIS } from "../../lib/perfil.js";
@@ -385,13 +385,13 @@ export default function AtendimentoWorkspace()
       </article>
 
       {[PERFIS.ATENDENTE, PERFIS.ADMIN].includes(perfil) ? (
-        
+
         <FormSection title="Anamnese inicial (triagem)">
           <div className="grid-checkboxes">
-          <span className="form-label" style={{ fontSize: '1rem' }}>
-            Tipo de atendimento
-          </span>
-          
+            <span className="form-label" style={{ fontSize: '1rem' }}>
+              Tipo de atendimento
+            </span>
+
             <label className="tipo-atendimento-checkbox" >
               <input
                 className="tipo-atendimento-checkbox-radio"
@@ -421,18 +421,26 @@ export default function AtendimentoWorkspace()
             </label>
           </div>
           <div className="grid-inputs">
-            <Input
-              label="Cor/raça"
-              value={anamneseInicial.corRaca}
-              onChange={(v) => setAnamneseInicial((p) => ({ ...p, corRaca: v }))}
-            />
-            <Input
-              label="Sexo/gênero"
-              value={anamneseInicial.sexoGenero}
-              onChange={(v) =>
-                setAnamneseInicial((p) => ({ ...p, sexoGenero: v }))
-              }
-            />
+            <div>
+              <label className="form-field-label">Cor/raça</label>
+              <select className="form-control" value={anamneseInicial.corRaca}
+                onChange={(e) => setInicial((p) => ({ ...p, corRaca: e.target.value }))}>
+                <option value="">Selecione</option>
+                {["Branca", "Preta", "Parda", "Amarela", "Indígena", "Não informado / Prefere não declarar"].map((o) => (
+                  <option key={o}>{o}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="form-field-label">Sexo/gênero</label>
+              <select className="form-control" value={anamneseInicial.sexoGenero}
+                onChange={(e) => setInicial((p) => ({ ...p, sexoGenero: e.target.value }))}>
+                <option value="">Selecione</option>
+                {["Mulher cisgênero", "Mulher trans", "Homem cisgênero", "Homem trans", "Pessoa não binária", "Prefere não declarar"].map((o) => (
+                  <option key={o}>{o}</option>
+                ))}
+              </select>
+            </div>
             <Input
               label="Território"
               value={anamneseInicial.territorio}

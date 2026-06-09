@@ -498,13 +498,16 @@ export default function AtendimentoWorkspace()
               </label>
             ))}
           </div>
-          <Textarea
-            label="Plano de acompanhamento"
-            value={anamneseTecnica.planoAcompanhamento}
-            onChange={(v) =>
-              setAnamneseTecnica((p) => ({ ...p, planoAcompanhamento: v }))
-            }
-          />
+          <div>
+              <label className="form-field-label">Plano de acompanhamento</label>
+              <select className="form-control" value={anamneseTecnica.planoAcompanhamento}
+                onChange={(e) => setAnamneseTecnica((p) => ({ ...p, planoAcompanhamento: e.target.value }))}>
+                <option value="">Selecione</option>
+                {["RETORNO_AGENDADO", "ACOMPANHAMENTO_CONTINUO","ENCERRAMENTO"].map((o) => (
+                  <option key={o}>{o}</option>
+                ))}
+              </select>
+            </div>
           <Textarea
             label="Síntese do caso"
             value={anamneseTecnica.sinteseCaso}

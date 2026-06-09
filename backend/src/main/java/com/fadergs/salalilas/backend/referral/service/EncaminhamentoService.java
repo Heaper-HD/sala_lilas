@@ -92,7 +92,6 @@ public class EncaminhamentoService {
             throw new BusinessException(ErrorCode.AGD_INVALID_STATUS_TRANSITION);
         }
 
-
         if (usuario.getPerfil() != PerfilUsuario.TECNICA) {
             throw new BusinessException(ErrorCode.ENC_NOT_ALLOWED);
         }
@@ -125,6 +124,14 @@ public class EncaminhamentoService {
         Agendamento agendamento = findOrThrow(agendamentoId);
         Usuario usuario = findUsuarioOrThrow(usuarioId);
         PerfilUsuario perfil = usuario.getPerfil();
+
+        if (!List.of(StatusAtendimento.TECNICA, StatusAtendimento.PSICOLOGIA, StatusAtendimento.JURIDICO).contains(agendamento.getStatus())) {
+            throw new BusinessException(ErrorCode.AGD_INVALID_STATUS_TRANSITION);
+        }
+
+        if (!EncaminhamentoPermissionValidator.isOwnerOfStatus(usuario.getPerfil(), agendamento.getStatus())) {
+            throw new BusinessException(ErrorCode.ENC_NOT_ALLOWED);
+        }
 
         if (perfil != PerfilUsuario.TECNICA && perfil != PerfilUsuario.CIS && perfil != PerfilUsuario.NPJ) {
             throw new BusinessException(ErrorCode.ENC_NOT_ALLOWED);

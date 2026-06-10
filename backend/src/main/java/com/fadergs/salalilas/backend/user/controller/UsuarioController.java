@@ -1,9 +1,8 @@
 package com.fadergs.salalilas.backend.user.controller;
 
-import com.fadergs.salalilas.backend.user.dto.CreateUsuarioRequest;
-import com.fadergs.salalilas.backend.user.dto.UpdateUsuarioRequest;
-import com.fadergs.salalilas.backend.user.dto.UsuarioResponse;
-import com.fadergs.salalilas.backend.user.dto.UsuarioSummaryResponse;
+import com.fadergs.salalilas.backend.security.SecurityUtils;
+import com.fadergs.salalilas.backend.user.dto.*;
+import com.fadergs.salalilas.backend.user.entity.Usuario;
 import com.fadergs.salalilas.backend.user.service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -54,6 +53,17 @@ public class UsuarioController {
             @PathVariable UUID id,
             @Valid @RequestBody UpdateUsuarioRequest request) {
         return ResponseEntity.ok(usuarioService.atualizar(id, request));
+    }
+
+    @PatchMapping("/{id}/senha")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @Operation(summary = "Desativa o acesso do usuário (soft delete)")
+    public ResponseEntity<Void> alterarSenha(
+            @PathVariable UUID id,
+            @Valid @RequestBody ResetarSenhaRequest request) {
+        UUID usuarioId = SecurityUtils.getCurrentUserId();
+        usuarioService.alterarSenha(id, usuarioId, request);
+        return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/{id}/desativar")

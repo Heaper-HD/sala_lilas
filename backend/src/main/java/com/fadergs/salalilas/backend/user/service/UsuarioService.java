@@ -3,10 +3,7 @@ package com.fadergs.salalilas.backend.user.service;
 import com.fadergs.salalilas.backend.exception.ErrorCode;
 import com.fadergs.salalilas.backend.exception.types.BusinessException;
 import com.fadergs.salalilas.backend.exception.types.ResourceNotFoundException;
-import com.fadergs.salalilas.backend.user.dto.CreateUsuarioRequest;
-import com.fadergs.salalilas.backend.user.dto.UpdateUsuarioRequest;
-import com.fadergs.salalilas.backend.user.dto.UsuarioResponse;
-import com.fadergs.salalilas.backend.user.dto.UsuarioSummaryResponse;
+import com.fadergs.salalilas.backend.user.dto.*;
 import com.fadergs.salalilas.backend.user.entity.Usuario;
 import com.fadergs.salalilas.backend.user.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
@@ -74,6 +71,20 @@ public class UsuarioService {
 
         log.info("User updated: {}", usuario.getEmail());
         return toResponse(usuario);
+    }
+
+    public void alterarSenha(UUID targetId, UUID adminId, ResetarSenhaRequest request) {
+        Usuario admin = findOrThrow(adminId);
+
+        if (!passwordEncoder.matches(request.senhaAdmin(), admin.getSenhaHash())) {
+            throw new BusinessException(ErrorCode.AUTH_INVALID_CREDENTIALS);
+        }
+
+        Usuario target = findOrThrow(targetId);
+        target.setSenhaHash(passwordEncoder.encode(request.senhaUsuario()));
+        usuarioRepository.save(target);
+
+        log.info("Password reset for user {} by admin {}", target.getEmail(), admin.getEmail());
     }
 
     public void desativar(UUID id) {

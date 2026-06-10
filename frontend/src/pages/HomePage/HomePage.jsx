@@ -1,26 +1,26 @@
-import { CalendarDays, HeartHandshake, BrainIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import "./HomePageStyle.css";
 
 const features = [
   {
-    icon: HeartHandshake,
-    title: "Acolhimento especializado",
-    text: "Atendimento humanizado para mulheres em situação de violência."
+    icon: "🤝",
+    title: "Acolhimento",
+    text: "Escuta qualificada e acolhimento humanizado por equipe especializada em situações de violência.",
   },
   {
-    icon: BrainIcon,
-    title: "Apoio psicológico",
-    text: "Atendimento psicológico individual para apoio emocional e fortalecimento do bem-estar."
+    icon: "🧠",
+    title: "Apoio Psicológico",
+    text: "Atendimento psicológico individual para apoio emocional e fortalecimento do bem-estar.",
   },
   {
-    icon: CalendarDays,
-    title: "Agendamento online",
-    text: "Solicite seu horário de forma simples, sem necessidade de cadastro prévio."
+    icon: "⚖️",
+    title: "Orientação Jurídica",
+    text: "Informação sobre direitos, medidas protetivas e encaminhamentos para a Defensoria Pública.",
   }
 ];
 
-export default function HomePage() {
+export default function HomePage()
+{
   return (
     <section className="home-section">
       <div className="hero-banner">
@@ -51,7 +51,9 @@ export default function HomePage() {
             key={title}
             className="feature-card"
           >
-            <Icon className="feature-icon" size={64} />
+            <h2 className="feature-icon" size={64} >
+              {Icon}
+            </h2>
             <h2 className="feature-title">{title}</h2>
             <p className="feature-text">{text}</p>
           </article>

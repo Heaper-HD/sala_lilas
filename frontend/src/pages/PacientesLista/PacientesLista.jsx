@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { pacienteApi } from "../../api/index.js";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import StatusBadge from "../../components/StatusBadge";
-import { formatDate } from "../../lib/format.js";
+import { formatDate, formatCpf } from "../../lib/format.js";
 import "./PacientesListaStyle.css";
 
 export default function PacientesLista() {
@@ -81,7 +81,7 @@ export default function PacientesLista() {
               {pacientes.map((p) => (
                 <tr key={p.pacienteId} className="table-body-row">
                   <td className="table-td td-nome">{p.nome}</td>
-                  <td className="table-td td-cpf">{p.cpf}</td>
+                  <td className="table-td td-cpf">{formatCpf(p.cpf)}</td>
                   <td className="table-td">{formatDate(p.ultimoAtendimento)}</td>
                   <td className="table-td">
                     {p.ultimoStatus ? (

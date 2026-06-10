@@ -3,20 +3,25 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useAuth } from "../context/AuthContext";
 
-export default function LgpdModal() {
+export default function LgpdModal()
+{
   const { lgpdPendente, aceitarLgpd } = useAuth();
   const [submitting, setSubmitting] = useState(false);
 
   if (!lgpdPendente) return null;
 
-  const handleAceitar = async () => {
+  const handleAceitar = async () =>
+  {
     setSubmitting(true);
-    try {
+    try
+    {
       await aceitarLgpd();
       toast.success("Termos aceitos com sucesso.");
-    } catch (error) {
+    } catch (error)
+    {
       toast.error(error.message || "Não foi possível registrar o aceite.");
-    } finally {
+    } finally
+    {
       setSubmitting(false);
     }
   };
@@ -30,8 +35,16 @@ export default function LgpdModal() {
         </div>
         <p className="text-sm leading-relaxed text-slate-600">
           Para continuar no sistema Sala Lilás, é necessário aceitar os termos de
-          tratamento de dados pessoais conforme a Lei Geral de Proteção de Dados.
-          Seus dados serão utilizados exclusivamente para fins de atendimento e
+          tratamento de dados pessoais conforme a{" "}
+          <a
+            href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709compilado.htm"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium text-purple-700 underline hover:text-purple-900"
+          >
+            Lei Geral de Proteção de Dados
+          </a>
+          . Seus dados serão utilizados exclusivamente para fins de atendimento e
           gestão do serviço.
         </p>
         <button

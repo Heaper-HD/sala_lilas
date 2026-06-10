@@ -1,0 +1,42 @@
+Podemos dividi-las em quatro grupos para ficar mais fácil de entender:
+1. Ferramentas de Rota e Autenticação
+
+    const { agendamentoId } = useParams();: Pega o ID do agendamento direto da URL (ex: /atendimento/123 pega o 123).
+
+    const { perfil } = useAuth();: Pega o perfil (cargo) do usuário que está logado (ex: ADMIN, TECNICA, ATENDENTE) do seu contexto de autenticação. Isso serve para esconder ou mostrar partes da tela.
+
+    const navigate = useNavigate();: Pega a função que permite trocar de página via código (usada no botão de "Voltar").
+
+2. Controle de Tela (UI)
+
+    const [loading, setLoading] = useState(true);: Controla o ícone de carregamento. Começa como true (girando) e vira false quando a API termina de mandar os dados.
+
+    const [saving, setSaving] = useState(false);: Controla os botões de salvar. Quando o usuário clica em salvar, vira true (para evitar que ele clique duas vezes e mande dados duplicados).
+
+    const [titulo, setTitulo] = useState("Atendimento");: Guarda o título que aparece no topo da tela. A ideia aqui é trocar a palavra "Atendimento" pelo nome do paciente quando a API responder.
+
+3. Dados dos Formulários
+
+Aqui é onde ficam armazenadas as respostas que o usuário digita nos campos de texto, selects e checkboxes.
+
+    const [anamneseInicial...: Guarda os dados da triagem (cor, raça, violência relatada, etc).
+
+    const [anamneseTecnica...: Guarda os dados técnicos (riscos, síntese do caso, plano de acompanhamento).
+
+    const [prontuario...: Guarda o prontuário psicossocial.
+
+    const [obsJuridica...: Guarda os encaminhamentos legais.
+
+4. Bandeiras de Verificação (Flags)
+
+Essas variáveis servem para o seu código saber se já existe algo salvo no banco de dados para aquele paciente.
+
+    const [hasInicial, setHasInicial] = useState(false);
+
+    const [hasTecnica, setHasTecnica] = useState(false);
+
+    const [hasProntuario, setHasProntuario] = useState(false);
+
+    const [hasObs, setHasObs] = useState(false);
+
+Por que elas são importantes? Quando o usuário clica em "Salvar", o sistema olha para essas flags. Se hasInicial for false, o sistema sabe que é a primeira vez, então ele manda a API criar (POST). Se for true, o sistema sabe que o dado já existe e só manda a API atualizar (PUT).

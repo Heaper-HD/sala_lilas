@@ -35,3 +35,10 @@ export function statusLabel(status) {
   };
   return map[status] || status;
 }
+
+export function formatCpf(cpf) {
+  if (!cpf) return "—";
+  const digits = cpf.replace(/\D/g, "");
+  if (digits.length !== 11) return String(cpf);
+  return digits.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+}

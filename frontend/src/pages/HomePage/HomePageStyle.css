@@ -1,3 +1,10 @@
+/*body{
+//ajustar depois para a imagem oficial do projeto
+  background-image: url("../../assets/logoTest.jpg");
+  background-size: contain;
+  background-position: center;
+}*/
+
 .home-section {
   display: flex;
   flex-direction: column;
@@ -100,10 +107,11 @@
   background-color: #ffffff;
   padding: 1.25rem;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  text-align: center;
 }
 
 .feature-icon {
-  color: #9333ea;
+  font-size: 64px;
 }
 
 .feature-title {

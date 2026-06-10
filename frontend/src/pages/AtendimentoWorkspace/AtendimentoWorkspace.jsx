@@ -441,15 +441,21 @@ export default function AtendimentoWorkspace()
             ))}
           </div>
           <div>
-              <label className="form-field-label">Plano de acompanhamento</label>
-              <select className="form-control" value={anamneseTecnica.planoAcompanhamento}
-                onChange={(e) => setAnamneseTecnica((p) => ({ ...p, planoAcompanhamento: e.target.value }))}>
-                <option value="">Selecione</option>
-                {["RETORNO_AGENDADO", "ACOMPANHAMENTO_CONTINUO","ENCERRAMENTO"].map((o) => (
-                  <option key={o}>{o}</option>
-                ))}
-              </select>
-            </div>
+            <label className="form-field-label">Plano de acompanhamento</label>
+            <select className="form-control" value={anamneseTecnica.planoAcompanhamento}
+              onChange={(e) => setAnamneseTecnica((p) => ({ ...p, planoAcompanhamento: e.target.value }))}>
+              <option value="">Selecione</option>
+              {[
+                ["RETORNO_AGENDADO", "Retorno agendado"],
+                ["ACOMPANHAMENTO_CONTINUO", "Acompanhamento contínuo"],
+                ["ENCERRAMENTO", "Encerramento"]
+              ].map(([value, label]) => (
+                <option key={value} value={value}>
+                  {label}
+                </option>
+              ))}
+            </select>
+          </div>
           <Textarea
             label="Síntese do caso"
             value={anamneseTecnica.sinteseCaso}
@@ -561,8 +567,6 @@ export default function AtendimentoWorkspace()
     </section>
   );
 }
-
-// Subcomponentes locais limpos e adaptados para o arquivo CSS externo
 function FormSection({ title, children })
 {
   return (

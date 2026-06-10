@@ -1,6 +1,7 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import "./LayoutStyle.css";
+import logoFad from "../assets/logoFad.png";
 
 const navItems = [
   { to: "/", label: "Início" },
@@ -49,7 +50,7 @@ export default function Layout() {
               </NavLink>
             ) : null}
           </div>
-          <div className="fadergs-logo"></div>
+          <img src={logoFad} alt="Logo Fadergs" className="fadergs-logo" />
         </nav>
       </header>
 

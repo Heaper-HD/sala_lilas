@@ -13,7 +13,8 @@
 
 .hero-banner {
   border-radius: 1rem;
-  background: linear-gradient(to bottom right, #9649df, #6b21a8);
+  /*background: linear-gradient(to bottom right, #9955BB, #5321a2);*/
+  background: linear-gradient(160deg, #7c3aed 0%, #995eff 60%, #7c40e6 100%);
   padding: 3rem 1.5rem;
   color: #ffffff;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
@@ -74,6 +75,8 @@
   background-color: #ffffff;
   color: #7e22ce;
   border: 1px solid transparent;
+  padding: 1.2em 1.5em;
+  font-size: 1.2rem;
 }
 
 .btn-primary:hover {
@@ -103,10 +106,10 @@
 
 .feature-card {
   border-radius: 0.75rem;
-  border: 1px solid #f3e8ff;
-  background-color: #ffffff;
+  /*border: 1px solid #f3e8ff;*/
+  background-color: #ffffffe5;
   padding: 1.25rem;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.5);
   text-align: center;
 }
 

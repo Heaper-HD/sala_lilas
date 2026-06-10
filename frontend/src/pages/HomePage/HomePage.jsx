@@ -36,12 +36,6 @@ export default function HomePage()
           >
             Agendar atendimento
           </Link>
-          <Link
-            to="/login"
-            className="btn btn-secondary"
-          >
-            Área da equipe
-          </Link>
         </div>
       </div>
 

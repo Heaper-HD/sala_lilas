@@ -85,13 +85,14 @@
 }
 
 .btn-encaminhar:hover {
-  opacity: 0.9;
+  opacity: 0.5;
 }
 
 .btn-encaminhar.bg-purple { background-color: #9333ea; }
-.btn-encaminhar.bg-indigo { background-color: #4f46e5; }
+.btn-encaminhar.bg-orange { background-color: #f19e22; }
 .btn-encaminhar.bg-blue { background-color: #2563eb; }
 .btn-encaminhar.bg-emerald { background-color: #059669; }
+.btn-encaminhar.bg-teal    { background-color: #0f766e; }
 
 .btn-encaminhar-outros {
   background-color: #ffffff;
@@ -106,7 +107,7 @@
 }
 
 .btn-encaminhar-outros:hover {
-  background-color: #f8fafc;
+  background-color: #9b9b9b;
 }
 
 .form-section-card {
@@ -236,4 +237,48 @@
   padding: 0.5rem;
   display: flex;
   flex-wrap: wrap;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-content h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #333;
+}
+
+.modal-content p {
+  margin: 0;
+  line-height: 1.5;
+  color: #555;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
 }

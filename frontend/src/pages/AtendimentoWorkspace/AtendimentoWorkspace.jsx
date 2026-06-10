@@ -2,8 +2,7 @@ import { Download, Save } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
-import
-{
+import {
   anamneseInicialApi,
   anamneseTecnicaApi,
   encaminhamentoApi,
@@ -45,8 +44,7 @@ const emptyAnamneseTecnica = {
   objetivos: []
 };
 
-function mapAnamneseInicial(data)
-{
+function mapAnamneseInicial(data) {
   if (!data) return emptyAnamneseInicial;
   return {
     tipoAtendimento: data.tipoAtendimento || "",
@@ -57,15 +55,14 @@ function mapAnamneseInicial(data)
     sexoGeneroOutro: data.sexoGeneroOutro || "",
     violencias: data.violencias?.length
       ? data.violencias.map((v) => ({
-        violencia: v.violencia || "",
-        violenciaOutro: v.violenciaOutro || ""
-      }))
+          violencia: v.violencia || "",
+          violenciaOutro: v.violenciaOutro || ""
+        }))
       : [{ violencia: "", violenciaOutro: "" }]
   };
 }
 
-function mapAnamneseTecnica(data)
-{
+function mapAnamneseTecnica(data) {
   if (!data) return emptyAnamneseTecnica;
   return {
     ...emptyAnamneseTecnica,
@@ -74,8 +71,7 @@ function mapAnamneseTecnica(data)
   };
 }
 
-export default function AtendimentoWorkspace()
-{
+export default function AtendimentoWorkspace() {
   const { agendamentoId } = useParams();
   const { perfil } = useAuth();
   const navigate = useNavigate();
@@ -90,9 +86,10 @@ export default function AtendimentoWorkspace()
   const [hasTecnica, setHasTecnica] = useState(false);
   const [hasProntuario, setHasProntuario] = useState(false);
   const [hasObs, setHasObs] = useState(false);
+  const [modalEncaminharAberto, setModalEncaminharAberto] = useState(false);
+  const [dadosDestino, setDadosDestino] = useState({ fn: null, label: "" });
 
-  useEffect(() =>
-  {
+  useEffect(() => {
     let cancelled = false;
     setLoading(true);
 
@@ -106,15 +103,12 @@ export default function AtendimentoWorkspace()
         PERFIS.NPJ,
         PERFIS.ADMIN
       ].includes(perfil)
-    )
-    {
+    ) {
       loads.push(
         anamneseInicialApi
           .buscar(agendamentoId)
-          .then((data) =>
-          {
-            if (!cancelled)
-            {
+          .then((data) => {
+            if (!cancelled) {
               setAnamneseInicial(mapAnamneseInicial(data));
               setHasInicial(true);
               setTitulo(data.pacienteNome || titulo);
@@ -124,15 +118,12 @@ export default function AtendimentoWorkspace()
       );
     }
 
-    if ([PERFIS.TECNICA, PERFIS.CIS, PERFIS.NPJ, PERFIS.ADMIN].includes(perfil))
-    {
+    if ([PERFIS.TECNICA, PERFIS.CIS, PERFIS.NPJ, PERFIS.ADMIN].includes(perfil)) {
       loads.push(
         anamneseTecnicaApi
           .buscar(agendamentoId)
-          .then((data) =>
-          {
-            if (!cancelled)
-            {
+          .then((data) => {
+            if (!cancelled) {
               setAnamneseTecnica(mapAnamneseTecnica(data));
               setHasTecnica(true);
             }
@@ -141,15 +132,12 @@ export default function AtendimentoWorkspace()
       );
     }
 
-    if ([PERFIS.CIS, PERFIS.ADMIN].includes(perfil))
-    {
+    if ([PERFIS.CIS, PERFIS.ADMIN].includes(perfil)) {
       loads.push(
         prontuarioApi
           .buscar(agendamentoId)
-          .then((data) =>
-          {
-            if (!cancelled)
-            {
+          .then((data) => {
+            if (!cancelled) {
               setProntuario({
                 observacoesPsicossocias: data.observacoesPsicossocias || ""
               });
@@ -160,15 +148,12 @@ export default function AtendimentoWorkspace()
       );
     }
 
-    if ([PERFIS.TECNICA, PERFIS.CIS, PERFIS.NPJ, PERFIS.ADMIN].includes(perfil))
-    {
+    if ([PERFIS.TECNICA, PERFIS.CIS, PERFIS.NPJ, PERFIS.ADMIN].includes(perfil)) {
       loads.push(
         obsJuridicaApi
           .buscar(agendamentoId)
-          .then((data) =>
-          {
-            if (!cancelled)
-            {
+          .then((data) => {
+            if (!cancelled) {
               setObsJuridica({
                 encaminhamentosLegais: data.encaminhamentosLegais || ""
               });
@@ -179,41 +164,33 @@ export default function AtendimentoWorkspace()
       );
     }
 
-    Promise.all(loads).finally(() =>
-    {
+    Promise.all(loads).finally(() => {
       if (!cancelled) setLoading(false);
     });
 
-    return () =>
-    {
+    return () => {
       cancelled = true;
     };
   }, [agendamentoId, perfil]);
 
-  const saveInicial = async () =>
-  {
+  const saveInicial = async () => {
     setSaving(true);
-    try
-    {
+    try {
       const fn = hasInicial ? anamneseInicialApi.atualizar : anamneseInicialApi.criar;
       !hasInicial ? await dashboardApi.checkin(agendamentoId) : null;
       await fn(agendamentoId, anamneseInicial);
       setHasInicial(true);
       toast.success("Anamnese inicial salva.");
-    } catch (error)
-    {
+    } catch (error) {
       toast.error(error.message);
-    } finally
-    {
+    } finally {
       setSaving(false);
     }
   };
 
-  const saveTecnica = async () =>
-  {
+  const saveTecnica = async () => {
     setSaving(true);
-    try
-    {
+    try {
       const body = {
         ...anamneseTecnica,
         dataRetorno: anamneseTecnica.dataRetorno || null
@@ -222,68 +199,59 @@ export default function AtendimentoWorkspace()
       await fn(agendamentoId, body);
       setHasTecnica(true);
       toast.success("Anamnese técnica salva.");
-    } catch (error)
-    {
+    } catch (error) {
       toast.error(error.message);
-    } finally
-    {
+    } finally {
       setSaving(false);
     }
   };
 
-  const saveProntuario = async () =>
-  {
+  const saveProntuario = async () => {
     setSaving(true);
-    try
-    {
+    try {
       const fn = hasProntuario ? prontuarioApi.atualizar : prontuarioApi.criar;
       await fn(agendamentoId, prontuario);
       setHasProntuario(true);
       toast.success("Prontuário salvo.");
-    } catch (error)
-    {
+    } catch (error) {
       toast.error(error.message);
-    } finally
-    {
+    } finally {
       setSaving(false);
     }
   };
 
-  const saveObs = async () =>
-  {
+  const saveObs = async () => {
     setSaving(true);
-    try
-    {
+    try {
       const fn = hasObs ? obsJuridicaApi.atualizar : obsJuridicaApi.criar;
       await fn(agendamentoId, obsJuridica);
       setHasObs(true);
       toast.success("Observação jurídica salva.");
-    } catch (error)
-    {
+    } catch (error) {
       toast.error(error.message);
-    } finally
-    {
+    } finally {
       setSaving(false);
     }
   };
+  const prepararEncaminhamento = (fn, label) => {
+    setDadosDestino({ fn, label });
+    setModalEncaminharAberto(true);
+  };
 
-  const encaminhar = async (fn, label) =>
-  {
-    try
-    {
+  const confirmarEncaminhamento = async () => {
+    const { fn, label } = dadosDestino;
+    try {
       await fn(agendamentoId);
-      toast.success(`Encaminhado: ${label}`);
+      toast.success(`Encaminhado para: ${label}`);
+      setModalEncaminharAberto(false);
       //navigate("/painel/filas");
-    } catch (error)
-    {
+    } catch (error) {
       toast.error(error.message);
     }
   };
 
-  const downloadPdf = async () =>
-  {
-    try
-    {
+  const downloadPdf = async () => {
+    try {
       const blob = await pdfApi.download(agendamentoId);
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
@@ -291,8 +259,7 @@ export default function AtendimentoWorkspace()
       a.download = `atendimento-${agendamentoId}.pdf`;
       a.click();
       URL.revokeObjectURL(url);
-    } catch (error)
-    {
+    } catch (error) {
       toast.error(error.message);
     }
   };
@@ -504,6 +471,7 @@ export default function AtendimentoWorkspace()
           }
         </FormSection>
       ) : null}
+      
       <article className="encaminhamentos-card">
         <h2 className="encaminhamentos-title">Encaminhar para</h2>
         <div className="encaminhamentos-actions">
@@ -511,7 +479,7 @@ export default function AtendimentoWorkspace()
             <button
               type="button"
               onClick={() =>
-                encaminhar(encaminhamentoApi.paraTecnica, "Equipe Técnica")
+                prepararEncaminhamento(encaminhamentoApi.paraTecnica, "Equipe Técnica")
               }
               className="btn-encaminhar bg-purple"
             >
@@ -522,7 +490,7 @@ export default function AtendimentoWorkspace()
             <button
               type="button"
               onClick={() =>
-                encaminhar(encaminhamentoApi.paraPsicologia, "Psicologia")
+                prepararEncaminhamento(encaminhamentoApi.paraPsicologia, "Psicologia")
               }
               className="btn-encaminhar bg-indigo"
             >
@@ -533,9 +501,9 @@ export default function AtendimentoWorkspace()
             <button
               type="button"
               onClick={() =>
-                encaminhar(encaminhamentoApi.paraJuridico, "Jurídico")
+                prepararEncaminhamento(encaminhamentoApi.paraJuridico, "Jurídico")
               }
-              className="btn-encaminhar bg-blue"
+              className="btn-encaminhar bg-orange"
             >
               → Jurídico
             </button>
@@ -544,9 +512,9 @@ export default function AtendimentoWorkspace()
             <button
               type="button"
               onClick={() =>
-                encaminhar(encaminhamentoApi.paraOutros, "Outros (finalizar)")
+                prepararEncaminhamento(encaminhamentoApi.paraOutros, "Outros (finalizar)")
               }
-              className="btn-encaminhar-outros"
+              className="btn-encaminhar bg-teal"
             >
               Outros + PDF
             </button>
@@ -555,7 +523,7 @@ export default function AtendimentoWorkspace()
             <button
               type="button"
               onClick={() =>
-                encaminhar(encaminhamentoApi.finalizar, "Finalizado")
+                prepararEncaminhamento(encaminhamentoApi.finalizar, "Finalizado")
               }
               className="btn-encaminhar bg-emerald"
             >
@@ -564,11 +532,38 @@ export default function AtendimentoWorkspace()
           ) : null}
         </div>
       </article>
+
+      {modalEncaminharAberto && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h2>Confirmar Encaminhamento</h2>
+            <p>
+              Tem certeza que deseja encaminhar este atendimento para <strong>{dadosDestino.label}</strong>?
+            </p>
+            <div className="modal-actions">
+              <button 
+                type="button" 
+                className="btn-back" 
+                onClick={() => setModalEncaminharAberto(false)}
+              >
+                Cancelar
+              </button>
+              <button 
+                type="button" 
+                className="btn-save" 
+                onClick={confirmarEncaminhamento}
+              >
+                Confirmar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
-function FormSection({ title, children })
-{
+
+function FormSection({ title, children }) {
   return (
     <article className="form-section-card">
       <h2 className="form-section-title">{title}</h2>
@@ -577,8 +572,7 @@ function FormSection({ title, children })
   );
 }
 
-function Input({ label, value, onChange })
-{
+function Input({ label, value, onChange }) {
   return (
     <label className="form-field-label">
       <span className="form-field-span">{label}</span>
@@ -592,8 +586,7 @@ function Input({ label, value, onChange })
   );
 }
 
-function Textarea({ label, value, onChange })
-{
+function Textarea({ label, value, onChange }) {
   return (
     <label className="form-field-label">
       <span className="form-field-span">{label}</span>
@@ -607,8 +600,7 @@ function Textarea({ label, value, onChange })
   );
 }
 
-function SaveButton({ onClick, saving })
-{
+function SaveButton({ onClick, saving }) {
   return (
     <button
       type="button"

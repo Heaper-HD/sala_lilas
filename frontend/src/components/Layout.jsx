@@ -6,7 +6,7 @@ import logoFad from "../assets/logoFad.png";
 const navItems = [
   { to: "/", label: "Início" },
   { to: "/agendamento", label: "Agendamento" },
-  { to: "/login", label: "Login" }
+  { to: "/login", label: "Área da equipe" }
 ];
 
 export default function Layout() {
